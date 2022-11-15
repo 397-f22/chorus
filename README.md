@@ -1,3 +1,10 @@
+# instrument notes
+piano: 4
+electric guitar: 318
+electic bass: 387
+acoustic guitar: 258
+
+
 # React Vitest Template
 
 A starter template for building React apps with Vite. Includes Vitest for unit testing and
