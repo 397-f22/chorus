@@ -10,22 +10,21 @@ const mappings = {
 	"f": 63
 }
 
-class MidiButton extends Component {
-	constructor(props) {
-		console.log("he")
-		super(props);
-		this.state = {
-			selectedInstrument: 4
-			,cached:true
-			,key: props.key
-		};
-	}
-	
-	componentDidMount() {
+function MidiButton (props) {
+	// constructor(props) {
+	// 	super(props);
+	// 	this.state = {
+	// 		selectedInstrument: 4
+	// 		,cached:true
+	// 		,key: props.key
+	// 	};
+	// }
+
+	function componentDidMount() {
 		console.log('componentDidMount App');
 		this.setState(this.state);
 	}
-	onSelectInstrument(e){
+	function onSelectInstrument(e){
 		var list=e.target;
 		let n = list.options[list.selectedIndex].getAttribute("value");
 		this.setState({
@@ -41,7 +40,7 @@ class MidiButton extends Component {
 			});
 		});
 	}
-	createSelectItems() {
+	function createSelectItems() {
 		if (this.midiSounds) {
 			if (!(this.items)) {
 				this.items = [];
@@ -52,10 +51,10 @@ class MidiButton extends Component {
 			return this.items;
 		}
 	}
-	playTestInstrument(key) {
+	function playTestInstrument(key) {
 		this.midiSounds.playChordNow(this.state.selectedInstrument, [60], 2.5);
 	}
-  render() {
+
     return (
       <div className="App">
        
@@ -67,7 +66,6 @@ class MidiButton extends Component {
 		<hr/>
       </div>
     );
-  }
-}
+};
 
 export default MidiButton;
