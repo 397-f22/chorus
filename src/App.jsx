@@ -7,11 +7,11 @@ import MIDISounds from 'midi-sounds-react';
 
 const App = () => {
   const [count, setCount] = useState(0);
-  
-  
-
   return (
     <div className="KeyListener">
+      <div>
+        <h1>Chorus</h1>
+      </div>
       <PlayNote/>
       <MidiButton/>
 
