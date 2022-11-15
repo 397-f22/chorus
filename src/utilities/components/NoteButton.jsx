@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import MIDISounds from 'midi-sounds-react';
 
 
+const instruments = [4, 318, 387, 258, 619, 628, 816]
+
 class MidiButton extends Component {
 	constructor(props) {
 		super(props);
@@ -34,8 +36,8 @@ class MidiButton extends Component {
 		if (this.midiSounds) {
 			if (!(this.items)) {
 				this.items = [];
-				for (let i = 0; i < this.midiSounds.player.loader.instrumentKeys().length; i++) {
-					this.items.push(<option key={i} value={i}>{'' + (i + 0) + '. ' + this.midiSounds.player.loader.instrumentInfo(i).title}</option>);
+				for (let i = 0; i < instruments.length; i++) {
+					this.items.push(<option key={instruments[i]} value={instruments[i]}>{'' + (i + 0) + '. ' + this.midiSounds.player.loader.instrumentInfo(instruments[i]).title}</option>);
 				}
 			}
 			return this.items;
@@ -54,7 +56,6 @@ class MidiButton extends Component {
 		<p>Component</p>
 		<MIDISounds ref={(ref) => (this.midiSounds = ref)} appElementName="root" instruments={[4]} />	
 		<hr/>
-		<p>Sources: <a href={'https://www.npmjs.com/package/midi-sounds-react'}>https://www.npmjs.com/package/midi-sounds-react</a></p>
       </div>
     );
   }
