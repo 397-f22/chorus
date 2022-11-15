@@ -3,7 +3,16 @@ piano: 4
 electric guitar: 318
 electic bass: 387
 acoustic guitar: 258
+trumpet: 619
+trombone: 628
+shakuhaki: 816
 
+# drums
+bass drum: 3
+rimshot: 11
+snare drum: 27
+hand clap: 22
+hi-hat: 35
 
 # React Vitest Template
 
