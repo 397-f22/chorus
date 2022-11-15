@@ -3,6 +3,12 @@ import MIDISounds from 'midi-sounds-react';
 
 
 const instruments = [4, 318, 387, 258, 619, 628, 816]
+const mappings = {
+	"a": 60,
+	"s": 61,
+	"d": 62,
+	"f": 63
+}
 
 class MidiButton extends Component {
 	constructor(props) {
@@ -10,6 +16,7 @@ class MidiButton extends Component {
 		this.state = {
 			selectedInstrument: 4
 			,cached:true
+			,key: props.key
 		};
 	}
 	componentDidMount() {
@@ -27,8 +34,8 @@ class MidiButton extends Component {
 		var me=this;
 		this.midiSounds.player.loader.waitLoad(function () {
 			me.setState({
-				selectedInstrument: n
-				,cached:true
+				selectedInstrument: n,
+				cached:true
 			});
 		});
 	}
@@ -43,7 +50,7 @@ class MidiButton extends Component {
 			return this.items;
 		}
 	}
-	playTestInstrument() {
+	playTestInstrument(key) {
 		this.midiSounds.playChordNow(this.state.selectedInstrument, [60], 2.5);
 	}
   render() {
