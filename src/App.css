@@ -41,6 +41,16 @@ button {
   font-size: calc(10px + 2vmin);
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
 .KeyListener {
   text-align: center;
 }

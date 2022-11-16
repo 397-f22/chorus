@@ -9,10 +9,16 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/base": "^5.0.0-alpha.106",
+    "@mui/material": "^5.10.14",
+    "@mui/styled-engine": "^5.10.14",
     "firebase": "^9.14.0",
+    "midi-sounds-react": "^1.2.45",
+    "mui": "^0.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "midi-sounds-react": "^1.2.45"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@testing-library/react": "^13.3.0",

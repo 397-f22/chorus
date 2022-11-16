@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import MIDISounds from 'midi-sounds-react';
-import { emptyBeatArray } from "./test.js"
+import { emptyBeatArray } from "../utilities/test.js"
 
-export const PlayNote = ({}) => {
+export const PlayNote = ({bpm}) => {
 	const [loop, setLoop] = useState(emptyBeatArray);
 	const instruments = [4, 318, 387, 258, 619, 628, 816]
 	const mappings = {
@@ -19,7 +19,7 @@ export const PlayNote = ({}) => {
 	const playTestInstrument = (key) => {
 		if (midiSounds) {
 			console.log(loop);
-			midiSounds.startPlayLoop(loop, 120, 1/16);
+			midiSounds.startPlayLoop(loop, bpm, 1/16);
 		}
 	}
 
