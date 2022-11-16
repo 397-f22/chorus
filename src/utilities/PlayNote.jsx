@@ -23,6 +23,10 @@ export const PlayNote = ({}) => {
 		}
 	}
 
+	const stopLoop = () => {
+		midiSounds.stopPlayLoop();
+	}
+
 	const updateLoop = (i) => {
 		var loopCopy = [...loop];
 		if (loopCopy[i][0].length > 0){
@@ -38,17 +42,17 @@ export const PlayNote = ({}) => {
 	}
 
 	return <div>
-		<button onClick={playTestInstrument}>playTestInstrument</button>
+		<div>Drum:</div>
 		<div className="row">
 			{loop.map((beat, i) => {
-				return <button style={isSelected(i) ? {color:"red"} : {color:"yellow"}} key={i} onClick={() => {
+				return <button className={isSelected(i) ? "selected" : "unselected"} key={i} onClick={() => {
 					updateLoop(i);
 				}}>{i}</button>
 			})}
 		</div>
-		<div style={{display: "none"}}>
-			<MIDISounds ref={(ref) => (setMidiSounds(ref))} drums={[27]}/>
-		</div>
+		<button onClick={playTestInstrument}>playLoop</button>
+		<button onClick={stopLoop}>stopLoop</button>
+		<MIDISounds ref={(ref) => (setMidiSounds(ref))} drums={[27]}/>
 	</div>	
 };
 

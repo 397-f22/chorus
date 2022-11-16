@@ -43,10 +43,9 @@ button {
 
 .KeyListener {
   text-align: center;
-  margin-top: 50px;
 }
 
-h1 {
+.header {
   background-color: #282c34;
   height: 100px;
   display: flex;
@@ -54,10 +53,32 @@ h1 {
   align-items: center;
   justify-content: flex-start;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #fff;
+}
+
+.logo{
+  width: 150px;
+  margin-left: 10px;
 }
 
 .row{
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.MIDISounds{
+  display: none;
+}
+
+.selected{
+  color: yellow;
+  border: 2px solid yellow;
+  background-color: red;
+}
+
+.unselected{
+  color: yellow;
+  border: 2px solid yellow;
+  background-color: green;
 }

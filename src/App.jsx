@@ -9,8 +9,8 @@ const App = () => {
   const [count, setCount] = useState(0);
   return (
     <div className="KeyListener">
-      <div>
-        <h1>Chorus</h1>
+      <div className='header'>
+        <img className='logo' src={logo} />
       </div>
       <PlayNote/>
       {/* <MidiButton/> */}
