@@ -73,12 +73,14 @@ button {
 
 .selected{
   color: yellow;
-  border: 2px solid yellow;
+  border: none;
+  margin: 2px;
   background-color: red;
 }
 
 .unselected{
   color: yellow;
-  border: 2px solid yellow;
+  border: none;
+  margin: 2px;
   background-color: green;
 }
