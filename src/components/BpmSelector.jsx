@@ -2,15 +2,17 @@ import { react, useState } from 'react';
 import { TextField } from '@mui/material';
 
 export const BpmSelector = ({bpm, setBpm}) => {
-    const max = 300;
+    const max = 999;
     const min = 0
 
     const onBpmChange = (event) => {
         if (Number(event.target.value) > max) {
             setBpm(max);
         }
-        else
-        {
+        else if (Number(event.target.value) < min) {
+            setBpm(min);
+        }
+        else {
             setBpm(event.target.value);
         }
     }
