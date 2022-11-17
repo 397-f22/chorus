@@ -30,8 +30,6 @@ export const PlayNote = ({bpm}) => {
 	}
 
 	const [midiSounds, setMidiSounds] = useState(undefined);
-	const [selectedInstrument, setSelectedInstrument] = useState(instruments[2]);
-	const [selectedNote, setSelectedNote] = useState(mappings["a"]);
 
 	const playTestInstrument = (key) => {
 		if (midiSounds) {
