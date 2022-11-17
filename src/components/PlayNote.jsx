@@ -7,13 +7,13 @@ export const PlayNote = ({bpm, note}) => {
 
 	const [loop, setLoop] = useState(emptyBeatArray);
 	const instruments = {
-		"piano": 4,
-		"electric guitar": 318,
-		"electic bass": 387,
-		"acoustic guitar": 258,
-		"trumpet": 619,
-		"trombone": 628,
-		"shakuhaki": 816
+		"Piano": 4,
+		"Acoustic guitar": 258,
+		"Electric guitar": 318,
+		"Electic bass": 387,
+		"Trumpet": 619,
+		"Trombone": 628,
+		"Bamboo flute": 816
 	};
 	
 	const drums = {
