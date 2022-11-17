@@ -1,0 +1,19 @@
+.noteButton {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #EEEEEE;
+    border: 1px solid black;
+
+}
+
+.noteButton:hover {
+    background-color: darkseagreen;
+}
+
+.note-container {
+    justify-content: center;
+}
+
+.selectedNote {
+    background-color: green;
+}
