@@ -19,7 +19,7 @@ const App = () => {
           <BpmSelector bpm={bpm} setBpm={setBpm}/>
         </div>
 
-        <PlayNote bpm={bpm}/>
+        <PlayNote bpm={bpm} note={note}/>
         <NoteSelectorBar note={note} setNote={setNote}></NoteSelectorBar>
   		</div>
       
