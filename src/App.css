@@ -74,8 +74,14 @@ button {
 .row{
   display: flex;
   flex-direction: row;
+  /* justify-content: space-between; */
   flex-wrap: wrap;
   height: 2rem;
+}
+
+.instrument-label {
+  min-width: 150px;
+  /* max-width: 100px; */
 }
 
 .MIDISounds{
