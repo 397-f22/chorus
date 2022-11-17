@@ -88,16 +88,7 @@ button {
   display: none;
 }
 
-.selected{
-  color: yellow;
+.beat-button{
   border: none;
   margin: 2px;
-  background-color: red;
-}
-
-.unselected{
-  color: yellow;
-  border: none;
-  margin: 2px;
-  background-color: green;
 }

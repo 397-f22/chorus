@@ -3,6 +3,8 @@ import MIDISounds from 'midi-sounds-react';
 import { emptyBeatArray } from "../utilities/test.js"
 
 export const PlayNote = ({bpm, note}) => {
+	const defaultColor = "#EEEEEE"
+
 	const [loop, setLoop] = useState(emptyBeatArray);
 	const instruments = {
 		"piano": 4,
@@ -52,13 +54,13 @@ export const PlayNote = ({bpm, note}) => {
 		setLoop(loopCopy);
 	}
 
-	const includeInstrument = (instrumentArray, instrument) => {
+	const includesInstrument = (instrumentArray, instrument) => {
 		return instrumentArray.filter((val) => val[0] === instrument).length > 0;
 	}
 
 	const updateInstrumentLoop = (i, instrument) => {
 		var loopCopy = [...loop];
-		if (loopCopy[i][1].length > 0 && includeInstrument(loopCopy[i][1], instrument)){
+		if (loopCopy[i][1].length > 0 && includesInstrument(loopCopy[i][1], instrument)){
 			loopCopy[i][1] = loopCopy[i][1].filter((x) => x[0] !== instrument);
 		} else {
 			loopCopy[i][1] = [...loopCopy[i][1], [instrument, [note], 1/16]];
@@ -71,7 +73,28 @@ export const PlayNote = ({bpm, note}) => {
 	}
 
 	const isInstrumentSelected = (i, instrument) => {
-		return loop[i][1].length > 0 && includeInstrument(loop[i][1], instrument)
+		return loop[i][1].length > 0 && includesInstrument(loop[i][1], instrument)
+	}
+
+	const noteColors = [
+		"orange",
+		"orangered",
+		"darkgrey",
+		"grey",
+		"red",
+		"pink",
+		"hotpink",
+		"green",
+		"darkgreen",
+		"rebeccapurple",
+		"purple",
+		"blue"
+	];
+
+	const noteColor = (instrument, beat) => {
+		const beatForInstrument = beat[1].filter((val) => val[0] === instrument)[0];
+		const note = beatForInstrument[1];
+		return noteColors[note % 12];
 	}
 
 	return <div style={{marginLeft: "20px", marginTop: "20px"}}>
@@ -80,9 +103,11 @@ export const PlayNote = ({bpm, note}) => {
 				return <div className="row">
 					<div className="instrument-label">{drum}:</div>
 					{loop.map((beat, i) => {
-						return <button className={isDrumSelected(i, drums[drum]) ? "selected" : "unselected"} key={i} onClick={() => {
-							updateDrumLoop(i, drums[drum]);
-						}}></button>
+						return 	<button className="beat-button"
+										style={{backgroundColor: isDrumSelected(i, drums[drum]) ? "black" : defaultColor}}
+										key={i} onClick={() => {
+											updateDrumLoop(i, drums[drum]);
+								}}/>
 					})}
 				</div>
 			})
@@ -92,9 +117,11 @@ export const PlayNote = ({bpm, note}) => {
 				return <div className="row">
 					<div className="instrument-label">{instrument}:</div>
 					{loop.map((beat, i) => {
-						return <button className={isInstrumentSelected(i, instruments[instrument]) ? "selected" : "unselected"} key={i} onClick={() => {
-							updateInstrumentLoop(i, instruments[instrument]);
-						}}></button>
+						return 	<button className="beat-button"
+										style={{backgroundColor: isInstrumentSelected(i, instruments[instrument]) ? noteColor(instruments[instrument], beat) : defaultColor}} 
+										key={i} onClick={() => {
+											updateInstrumentLoop(i, instruments[instrument]);
+					 					}}/>
 					})}
 				</div>
 			})
