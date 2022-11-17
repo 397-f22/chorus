@@ -75,6 +75,7 @@ button {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  height: 2rem;
 }
 
 .MIDISounds{
