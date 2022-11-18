@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import MIDISounds from 'midi-sounds-react';
 import { emptyBeatArray } from "../utilities/test.js"
-
-export const PlayNote = ({bpm, note}) => {
+import { notes } from './NoteSelectorBar.jsx'
+ 
+export const PlayNote = ({bpm, note, octave, setOctave}) => {
 	const defaultColor = "#EEEEEE"
+
+
+	
 
 	const [loop, setLoop] = useState(emptyBeatArray);
 	const instruments = {
@@ -63,7 +67,7 @@ export const PlayNote = ({bpm, note}) => {
 		if (loopCopy[i][1].length > 0 && includesInstrument(loopCopy[i][1], instrument)){
 			loopCopy[i][1] = loopCopy[i][1].filter((x) => x[0] !== instrument);
 		} else {
-			loopCopy[i][1] = [...loopCopy[i][1], [instrument, [note], 1/16]];
+			loopCopy[i][1] = [...loopCopy[i][1], [instrument, [note + (12 * octave)], 1/16]];
 		}
 		setLoop(loopCopy);
 	}
@@ -76,25 +80,23 @@ export const PlayNote = ({bpm, note}) => {
 		return loop[i][1].length > 0 && includesInstrument(loop[i][1], instrument)
 	}
 
-	const noteColors = [
-		"orange",
-		"orangered",
-		"darkgrey",
-		"grey",
-		"red",
-		"pink",
-		"hotpink",
-		"green",
-		"darkgreen",
-		"rebeccapurple",
-		"purple",
-		"blue"
-	];
+	
+	const toColor = (noteNumber) => {
+		
+		noteNumber >>>= 0;
+		var b = noteNumber & 0xFF,
+			g = (noteNumber & 0xFF00) >>> 8,
+			r = (noteNumber & 0xFF0000) >>> 16
+			// a = ( (noteNumber & 0xFF000000) >>> 24 ) / 255 ;
+		return "rgba(" + [r, g, b, '100'].join(",") + ")";
+	}
+
 
 	const noteColor = (instrument, beat) => {
 		const beatForInstrument = beat[1].filter((val) => val[0] === instrument)[0];
 		const note = beatForInstrument[1];
-		return noteColors[note % 12];
+		console.log(note + (12 * octave))
+		return toColor(note + (12 * octave));
 	}
 
 	return <div style={{marginLeft: "20px", marginTop: "20px"}}>

@@ -8,6 +8,7 @@ import {NoteSelectorBar} from './components/NoteSelectorBar.jsx'
 const App = () => {
   const [bpm, setBpm] = useState(120);
   const [note, setNote] = useState(60);
+  const [octave, setOctave] = useState(0);
 
   return (
     <div className='KeyListener'>
@@ -19,8 +20,8 @@ const App = () => {
           <BpmSelector bpm={bpm} setBpm={setBpm}/>
         </div>
 
-        <PlayNote bpm={bpm} note={note}/>
-        <NoteSelectorBar note={note} setNote={setNote}></NoteSelectorBar>
+        <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave}/>
+        <NoteSelectorBar note={note} setNote={setNote} octave={octave} setOctave={setOctave}></NoteSelectorBar>
   		</div>
       
     </div>
