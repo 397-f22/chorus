@@ -12,6 +12,7 @@
 
 .note-container {
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 .selectedNote {

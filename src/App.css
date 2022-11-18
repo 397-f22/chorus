@@ -81,7 +81,7 @@ button {
 
 .instrument-label {
   min-width: 150px;
-  /* max-width: 100px; */
+  font-family: 'PT Sans',"Roboto","Helvetica","Arial", sans-serif;
 }
 
 .MIDISounds{
@@ -91,4 +91,12 @@ button {
 .beat-button{
   border: none;
   margin: 2px;
+}
+
+.play-controls{
+  margin: 20px 0;
+}
+
+.play-controls button{
+  margin: 0 5px;
 }

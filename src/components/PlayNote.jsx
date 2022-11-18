@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import MIDISounds from 'midi-sounds-react';
 import { emptyBeatArray } from "../utilities/test.js"
 import { notes } from './NoteSelectorBar.jsx'
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
+import { Button } from '@mui/material';
+
  
 export const PlayNote = ({bpm, note, octave, setOctave}) => {
 	const defaultColor = "#EEEEEE"
@@ -128,8 +132,22 @@ export const PlayNote = ({bpm, note, octave, setOctave}) => {
 				</div>
 			})
 		}
-		<button onClick={playTestInstrument}>playLoop</button>
-		<button onClick={stopLoop}>stopLoop</button>
+		{/* <button onClick={playTestInstrument}>playLoop</button> */}
+		{/* <button onClick={stopLoop}>stopLoop</button> */}
+		<div className="play-controls">
+			<Button variant="outlined"
+					color="success" 
+					onClick={playTestInstrument}
+					startIcon={<PlayCircleOutlineIcon />}>
+				Play
+			</Button>
+			<Button variant="outlined"
+					color="success" 
+					onClick={stopLoop}
+					startIcon={<PauseCircleOutlineIcon />}>
+				Stop
+			</Button>
+		</div>
 		<MIDISounds ref={(ref) => (setMidiSounds(ref))} drums={Object.values(drums)} instruments={Object.values(instruments)}/>
 	</div>	
 };
