@@ -10,6 +10,7 @@ const App = () => {
   const [bpm, setBpm] = useState(120);
   const [note, setNote] = useState(60);
   const [octave, setOctave] = useState(0);
+  const [numberOfBeats, setNumberOfBeats] = useState(16);
 
   return (
     <div className='KeyListener'>
@@ -17,8 +18,9 @@ const App = () => {
         <img className='logo' src={logo} />
       </div>
       <div className='flex-col'>
-        <div className='flex-row'>
-          <BpmSelector bpm={bpm} setBpm={setBpm}/> <LoopProgressIndicator/>
+        <div className='flex-row' style={{marginTop: "20px"}}>
+          <BpmSelector bpm={bpm} setBpm={setBpm}/>
+          <LoopProgressIndicator bpm={bpm} numberOfBeats={numberOfBeats}/>
         </div>
         <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave}/>
         <NoteSelectorBar note={note} setNote={setNote} octave={octave} setOctave={setOctave}></NoteSelectorBar>

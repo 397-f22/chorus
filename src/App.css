@@ -100,3 +100,16 @@ button {
 .play-controls button{
   margin: 0 5px;
 }
+
+.moving-bar-box {
+  border: 5px solid grey;
+  width: 1024px;
+  height: 46px;
+}
+
+.moving-bar-box .bar {
+  width: 5px;
+  height: 46px;
+  background-color: lightgreen;
+  position: relative;
+}
