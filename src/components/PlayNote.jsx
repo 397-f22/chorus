@@ -7,13 +7,11 @@ import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import { Button } from '@mui/material';
 
  
-export const PlayNote = ({bpm, note, octave, setOctave}) => {
+export const PlayNote = ({bpm, note, octave, setOctave, isPlayed, setIsPlayed, beatIndex, setBeatIndex}) => {
 	const defaultColor = "#EEEEEE"
 
-
-	
-
 	const [loop, setLoop] = useState(emptyBeatArray);
+	const [loopIntervalID, setLoopIntervalID] = useState(undefined);
 	const instruments = {
 		"Piano": 4,
 		"Acoustic guitar": 258,
@@ -41,15 +39,45 @@ export const PlayNote = ({bpm, note, octave, setOctave}) => {
 
 	const [midiSounds, setMidiSounds] = useState(undefined);
 
-	const playTestInstrument = (key) => {
+	const startLoop = (key) => {
+		console.log(midiSounds.beatIndex);
 		if (midiSounds) {
 			console.log(loop);
-			midiSounds.startPlayLoop(loop, bpm, 1/16);
+			setIsPlayed(true);
+			startPlayLoop(loop, 1/16, 0);
 		}
 	}
 
-	const stopLoop = () => {
+	const startPlayLoop = (beats, density, fromBeat) => {
 		midiSounds.stopPlayLoop();
+		var wholeNoteDuration = 4 * 60 / bpm;
+		if(fromBeat<beats.length){
+			setBeatIndex(fromBeat);
+		}else{
+			setBeatIndex(0);
+		} 
+		midiSounds.playBeatAt(midiSounds.contextTime(), beats[beatIndex], bpm);
+		var nextLoopTime = midiSounds.contextTime() + density * wholeNoteDuration;
+		setLoopIntervalID(setInterval(function () {
+			if (midiSounds.contextTime() > nextLoopTime - density * wholeNoteDuration ) {
+				setBeatIndex(x => x + 1);
+				if (beatIndex >= beats.length) {
+					setBeatIndex(0);
+				}
+				midiSounds.playBeatAt(nextLoopTime, beats[beatIndex], bpm);
+				nextLoopTime = nextLoopTime + density * wholeNoteDuration;
+			}
+		}, 22));
+	}
+
+	const stopLoop = () => {
+		setIsPlayed(false);
+		stopPlayLoop();
+	}
+
+	const stopPlayLoop = () => {
+		clearInterval(loopIntervalID);
+		this.cancelQueue();
 	}
 
 	const updateDrumLoop = (i, drum) => {
@@ -132,12 +160,12 @@ export const PlayNote = ({bpm, note, octave, setOctave}) => {
 				</div>
 			})
 		}
-		{/* <button onClick={playTestInstrument}>playLoop</button> */}
+		{/* <button onClick={startLoop}>playLoop</button> */}
 		{/* <button onClick={stopLoop}>stopLoop</button> */}
 		<div className="play-controls">
 			<Button variant="outlined"
 					color="success" 
-					onClick={playTestInstrument}
+					onClick={startLoop}
 					startIcon={<PlayCircleOutlineIcon />}>
 				Play
 			</Button>
