@@ -25,7 +25,7 @@ export const BpmSelector = ({bpm, setBpm}) => {
             variant="outlined"
             onChange={onBpmChange}
             value={bpm}
-            style={{marginTop: "20px", alignSelf: "flex-start", marginLeft: "20px"}}
+            style={{marginTop: "20px", alignSelf: "flex-start", marginLeft: "20px", minWidth: "150px"}}
         />;
 }
 
