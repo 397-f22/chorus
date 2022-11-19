@@ -91,6 +91,7 @@ button {
 .beat-button{
   border: none;
   margin: 2px;
+  cursor: pointer;
 }
 
 .play-controls{
