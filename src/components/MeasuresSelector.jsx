@@ -1,32 +1,32 @@
 import { react, useState } from 'react';
 import { TextField } from '@mui/material';
 
-export const BpmSelector = ({bpm, setBpm}) => {
-    const max = 999;
+export const MeasuresSelector = ({measures, setMeasures}) => {
+    const max = 16;
     const min = 1;
 
-    const onBpmChange = (event) => {
+    const onMeasuresChange = (event) => {
         if (Number(event.target.value) > max) {
-            setBpm(max);
+            setMeasures(max);
         }
         else if (Number(event.target.value) < min) {
-            setBpm(min);
+            setMeasures(min);
         }
         else {
-            setBpm(event.target.value);
+            setMeasures(event.target.value);
         }
     }
 
     return <TextField
             id="outlined-number"
-            label="BPM"
+            label="Measures"
             type="number"
             InputProps={{ inputProps: { min: min, max: max, step: "1" } }}
             variant="outlined"
-            onChange={onBpmChange}
-            value={bpm}
+            onChange={onMeasuresChange}
+            value={measures}
             style={{marginTop: "20px", alignSelf: "flex-start", marginLeft: "20px"}}
         />;
 }
 
-export default BpmSelector
+export default MeasuresSelector;
