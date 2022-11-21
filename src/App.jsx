@@ -26,7 +26,10 @@ const App = () => {
           <BpmSelector bpm={bpm} setBpm={setBpm}/>
           <Button variant="outlined"
                   color="success" 
-                  onClick={() => setLoop([...neverGonnaGiveYouUp])}
+                  onClick={() => {
+                    setLoop([...neverGonnaGiveYouUp]);
+                    setBpm(111);
+                  }}
                   style={{width: "fit-content"}}>
               Load Example 1
           </Button>
@@ -39,8 +42,6 @@ const App = () => {
 
         <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} loop={loop} setLoop={setLoop}/>
         <NoteSelectorBar note={note} setNote={setNote} octave={octave} setOctave={setOctave}></NoteSelectorBar>
-        
-        
   		</div>
       
     </div>
