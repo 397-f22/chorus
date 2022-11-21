@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 import MIDISounds from 'midi-sounds-react';
-import { emptyBeatArray } from "../utilities/test.js"
+import { emptyBeatArray, neverGonnaGiveYouUp } from "../utilities/loops.js"
 import { notes } from './NoteSelectorBar.jsx'
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import { Button } from '@mui/material';
+import { printBeats } from '../utilities/printBeats.js';
 
  
-export const PlayNote = ({bpm, note, octave, setOctave}) => {
+export const PlayNote = ({bpm, note, octave, setOctave, loop, setLoop}) => {
 	const defaultColor = "#EEEEEE"
 
-
-	
-
-	const [loop, setLoop] = useState(emptyBeatArray);
 	const instruments = {
 		"Piano": 4,
 		"Acoustic guitar": 258,
@@ -43,7 +40,7 @@ export const PlayNote = ({bpm, note, octave, setOctave}) => {
 
 	const playTestInstrument = (key) => {
 		if (midiSounds) {
-			console.log(loop);
+			//console.log(loop);
 			midiSounds.startPlayLoop(loop, bpm, 1/16);
 		}
 	}
@@ -74,6 +71,7 @@ export const PlayNote = ({bpm, note, octave, setOctave}) => {
 			loopCopy[i][1] = [...loopCopy[i][1], [instrument, [note + (12 * octave)], 1/16]];
 		}
 		setLoop(loopCopy);
+		//console.log(printBeats(loopCopy))
 	}
 
 	const isDrumSelected = (i, drum) => {
@@ -84,9 +82,7 @@ export const PlayNote = ({bpm, note, octave, setOctave}) => {
 		return loop[i][1].length > 0 && includesInstrument(loop[i][1], instrument)
 	}
 
-	
-	const toColor = (noteNumber) => {
-		
+	const toColor = (noteNumber) => {		
 		noteNumber >>>= 0;
 		var b = noteNumber & 0xFF,
 			g = (noteNumber & 0xFF00) >>> 8,
@@ -95,18 +91,17 @@ export const PlayNote = ({bpm, note, octave, setOctave}) => {
 		return "rgba(" + [r, g, b, '100'].join(",") + ")";
 	}
 
-
 	const noteColor = (instrument, beat) => {
 		const beatForInstrument = beat[1].filter((val) => val[0] === instrument)[0];
 		const note = beatForInstrument[1];
-		console.log(note + (12 * octave))
+		//console.log(note + (12 * octave))
 		return toColor(note + (12 * octave));
 	}
 
-	return <div style={{marginLeft: "20px", marginTop: "20px"}}>
+	return <div style={{marginTop: "20px"}}>
 		{	
-			Object.keys(drums).map(drum => {
-				return <div className="row">
+			Object.keys(drums).map((drum, idx) => {
+				return <div className="row" key={idx}>
 					<div className="instrument-label">{drum}:</div>
 					{loop.map((beat, i) => {
 						return 	<button className="beat-button"
@@ -119,8 +114,8 @@ export const PlayNote = ({bpm, note, octave, setOctave}) => {
 			})
 		}
 		{	
-			Object.keys(instruments).map(instrument => {
-				return <div className="row">
+			Object.keys(instruments).map((instrument, idx) => {
+				return <div className="row" key={idx}>
 					<div className="instrument-label">{instrument}:</div>
 					{loop.map((beat, i) => {
 						return 	<button className="beat-button"
@@ -148,6 +143,7 @@ export const PlayNote = ({bpm, note, octave, setOctave}) => {
 				Stop
 			</Button>
 		</div>
+
 		<MIDISounds ref={(ref) => (setMidiSounds(ref))} drums={Object.values(drums)} instruments={Object.values(instruments)}/>
 	</div>	
 };

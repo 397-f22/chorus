@@ -5,11 +5,8 @@ import React, { useState } from 'react';
 import './NoteSelectorBar.css'
 import { ButtonGroup, Button } from '@mui/material';
 
-
 export const notes = [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71]
 const note_names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-
-
 
 const NoteButton = ({note, noteName, setNote, selectedNote}) => {
     return (
@@ -27,9 +24,6 @@ const OctaveButton = ({octave, setOctave, direction}) => {
     )
 }
 
-
-
-
 export const NoteSelectorBar = ({note, setNote, octave, setOctave}) => {
     return (
         // <div className="flex-row note-container">
@@ -40,7 +34,7 @@ export const NoteSelectorBar = ({note, setNote, octave, setOctave}) => {
         <ButtonGroup variant="outlined" color="success" aria-label="outlined button group" className="flex-row note-container">
             <OctaveButton octave={octave} setOctave={setOctave} direction={1}/>
             <OctaveButton octave={octave} setOctave={setOctave} direction={0}/>
-            { notes.map((val, idx) => <NoteButton note={val} noteName={note_names[idx]} setNote={setNote} selectedNote={note}/>) }
+            { notes.map((val, idx) => <NoteButton note={val} noteName={note_names[idx]} setNote={setNote} selectedNote={note} key={idx}/>) }
         </ButtonGroup>
     )
 }
