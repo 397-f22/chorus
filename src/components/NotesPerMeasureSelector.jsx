@@ -25,7 +25,6 @@ export const NotesPerMeasureSelector = ({notesPerMeasure, setNotesPerMeasure}) =
             variant="outlined"
             onChange={onNotesPerMeasureChange}
             value={notesPerMeasure}
-            style={{marginTop: "20px", alignSelf: "flex-start", marginLeft: "20px"}}
         />;
 }
 

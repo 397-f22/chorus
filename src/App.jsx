@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import PlayNote from './components/PlayNote';
 import BpmSelector from './components/BpmSelector';
+import MeasuresSelector from './components/MeasuresSelector';
+import NotesPerMeasureSelector from './components/NotesPerMeasureSelector';
 import {NoteSelectorBar} from './components/NoteSelectorBar.jsx'
 import { emptyBeatArray, neverGonnaGiveYouUp } from "./utilities/loops.js"
 import { Button, IconButton, Tooltip } from '@mui/material';
@@ -40,7 +42,7 @@ const App = () => {
           </Tooltip>
         </div>
 
-        <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} loop={loop} setLoop={setLoop}/>
+        <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure}/>
         <NoteSelectorBar note={note} setNote={setNote} octave={octave} setOctave={setOctave}></NoteSelectorBar>
   		</div>
       

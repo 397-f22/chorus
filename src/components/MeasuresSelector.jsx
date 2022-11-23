@@ -25,7 +25,6 @@ export const MeasuresSelector = ({measures, setMeasures}) => {
             variant="outlined"
             onChange={onMeasuresChange}
             value={measures}
-            style={{marginTop: "20px", alignSelf: "flex-start", marginLeft: "20px"}}
         />;
 }
 

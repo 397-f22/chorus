@@ -8,7 +8,7 @@ import { Button } from '@mui/material';
 import { printBeats } from '../utilities/printBeats.js';
 
  
-export const PlayNote = ({bpm, note, octave, setOctave, loop, setLoop}) => {
+export const PlayNote = ({bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure}) => {
 	const defaultColor = "#EEEEEE"
 
 	const instruments = {
@@ -40,8 +40,8 @@ export const PlayNote = ({bpm, note, octave, setOctave, loop, setLoop}) => {
 
 	const playTestInstrument = (key) => {
 		if (midiSounds) {
-			//console.log(loop);
-			midiSounds.startPlayLoop(loop, bpm, 1/16);
+			console.log(loop);
+			midiSounds.startPlayLoop(loop, bpm, 1/notesPerMeasure);
 		}
 	}
 
@@ -68,7 +68,7 @@ export const PlayNote = ({bpm, note, octave, setOctave, loop, setLoop}) => {
 		if (loopCopy[i][1].length > 0 && includesInstrument(loopCopy[i][1], instrument)){
 			loopCopy[i][1] = loopCopy[i][1].filter((x) => x[0] !== instrument);
 		} else {
-			loopCopy[i][1] = [...loopCopy[i][1], [instrument, [note + (12 * octave)], 1/16]];
+			loopCopy[i][1] = [...loopCopy[i][1], [instrument, [note + (12 * octave)], 1/notesPerMeasure]];
 		}
 		setLoop(loopCopy);
 		//console.log(printBeats(loopCopy))
