@@ -104,7 +104,7 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 				return <div className="row" key={idx}>
 					<div className="instrument-label">{drum}:</div>
 					{loop.map((beat, i) => {
-						return <button className="beat-button"
+						return <button className="beat-button" data-cy={isDrumSelected(i, drums[drum]) ? "selected-beat" : "unselected-beat"}
 							style={{ backgroundColor: isDrumSelected(i, drums[drum]) ? "black" : defaultColor }}
 							key={i} onClick={() => {
 								updateDrumLoop(i, drums[drum]);
@@ -118,7 +118,7 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 				return <div className="row" key={idx}>
 					<div className="instrument-label">{instrument}:</div>
 					{loop.map((beat, i) => {
-						return <button className="beat-button"
+						return <button className="beat-button" data-cy={isInstrumentSelected(i, instruments[instrument]) ? "selected-beat" : "unselected-beat"}
 							style={{ backgroundColor: isInstrumentSelected(i, instruments[instrument]) ? noteColor(instruments[instrument], beat) : defaultColor }}
 							key={i} onClick={() => {
 								updateInstrumentLoop(i, instruments[instrument]);

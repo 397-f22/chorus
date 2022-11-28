@@ -10,7 +10,9 @@ const note_names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", 
 
 const NoteButton = ({note, noteName, setNote, selectedNote}) => {
     return (
-        <Button style={note === selectedNote ? {backgroundColor: "darkseagreen"} : {}} onClick={() => setNote(note)}>
+        <Button 
+            data-cy={note + (note === selectedNote ? "-selected" : "-unselected")}
+            style={note === selectedNote ? {backgroundColor: "darkseagreen"} : {}} onClick={() => setNote(note)}>
             {noteName}
         </Button>
     )

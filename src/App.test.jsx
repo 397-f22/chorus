@@ -9,4 +9,6 @@ describe('function tests', () => {
     console.log(printBeats(beats))
     expect(printBeats(beats)==="[[[],[]],[[1],[]],[[],[[1,[1],1]]],[[1],[[1,[1],1]]],[[1,2],[[1,[1],1],[2,[2],2]]]]").toBeTruthy();
   });
+
+  it('load example loads correct loop') 
 });
