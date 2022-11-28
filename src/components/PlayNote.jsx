@@ -7,20 +7,20 @@ import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import { Button } from '@mui/material';
 import { printBeats } from '../utilities/printBeats.js';
 
- 
-export const PlayNote = ({bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure}) => {
+
+export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure }) => {
 	const defaultColor = "#EEEEEE"
 
 	const instruments = {
 		"Piano": 4,
 		"Acoustic guitar": 258,
 		"Electric guitar": 318,
-		"Electic bass": 387,
+		"Electric bass": 387,
 		"Trumpet": 619,
 		"Trombone": 628,
 		"Bamboo flute": 816
 	};
-	
+
 	const drums = {
 		"Bass drum": 3,
 		"Rimshot": 11,
@@ -41,7 +41,7 @@ export const PlayNote = ({bpm, note, octave, setOctave, loop, setLoop, notesPerM
 	const playTestInstrument = (key) => {
 		if (midiSounds) {
 			console.log(loop);
-			midiSounds.startPlayLoop(loop, bpm, 1/notesPerMeasure);
+			midiSounds.startPlayLoop(loop, bpm, 1 / notesPerMeasure);
 		}
 	}
 
@@ -51,7 +51,7 @@ export const PlayNote = ({bpm, note, octave, setOctave, loop, setLoop, notesPerM
 
 	const updateDrumLoop = (i, drum) => {
 		var loopCopy = [...loop];
-		if (loopCopy[i][0].length > 0 && loopCopy[i][0].includes(drum)){
+		if (loopCopy[i][0].length > 0 && loopCopy[i][0].includes(drum)) {
 			loopCopy[i][0] = loopCopy[i][0].filter((x) => x !== drum);
 		} else {
 			loopCopy[i][0] = [...loopCopy[i][0], drum];
@@ -65,10 +65,10 @@ export const PlayNote = ({bpm, note, octave, setOctave, loop, setLoop, notesPerM
 
 	const updateInstrumentLoop = (i, instrument) => {
 		var loopCopy = [...loop];
-		if (loopCopy[i][1].length > 0 && includesInstrument(loopCopy[i][1], instrument)){
+		if (loopCopy[i][1].length > 0 && includesInstrument(loopCopy[i][1], instrument)) {
 			loopCopy[i][1] = loopCopy[i][1].filter((x) => x[0] !== instrument);
 		} else {
-			loopCopy[i][1] = [...loopCopy[i][1], [instrument, [note + (12 * octave)], 1/notesPerMeasure]];
+			loopCopy[i][1] = [...loopCopy[i][1], [instrument, [note + (12 * octave)], 1 / notesPerMeasure]];
 		}
 		setLoop(loopCopy);
 		//console.log(printBeats(loopCopy))
@@ -82,12 +82,12 @@ export const PlayNote = ({bpm, note, octave, setOctave, loop, setLoop, notesPerM
 		return loop[i][1].length > 0 && includesInstrument(loop[i][1], instrument)
 	}
 
-	const toColor = (noteNumber) => {		
+	const toColor = (noteNumber) => {
 		noteNumber >>>= 0;
 		var b = noteNumber & 0xFF,
 			g = (noteNumber & 0xFF00) >>> 8,
 			r = (noteNumber & 0xFF0000) >>> 16
-			// a = ( (noteNumber & 0xFF000000) >>> 24 ) / 255 ;
+		// a = ( (noteNumber & 0xFF000000) >>> 24 ) / 255 ;
 		return "rgba(" + [r, g, b, '100'].join(",") + ")";
 	}
 
@@ -98,31 +98,31 @@ export const PlayNote = ({bpm, note, octave, setOctave, loop, setLoop, notesPerM
 		return toColor(note + (12 * octave));
 	}
 
-	return <div style={{marginTop: "20px"}}>
-		{	
+	return <div style={{ marginTop: "20px" }}>
+		{
 			Object.keys(drums).map((drum, idx) => {
 				return <div className="row" key={idx}>
 					<div className="instrument-label">{drum}:</div>
 					{loop.map((beat, i) => {
-						return 	<button className="beat-button"
-										style={{backgroundColor: isDrumSelected(i, drums[drum]) ? "black" : defaultColor}}
-										key={i} onClick={() => {
-											updateDrumLoop(i, drums[drum]);
-								}}/>
+						return <button className="beat-button"
+							style={{ backgroundColor: isDrumSelected(i, drums[drum]) ? "black" : defaultColor }}
+							key={i} onClick={() => {
+								updateDrumLoop(i, drums[drum]);
+							}} />
 					})}
 				</div>
 			})
 		}
-		{	
+		{
 			Object.keys(instruments).map((instrument, idx) => {
 				return <div className="row" key={idx}>
 					<div className="instrument-label">{instrument}:</div>
 					{loop.map((beat, i) => {
-						return 	<button className="beat-button"
-										style={{backgroundColor: isInstrumentSelected(i, instruments[instrument]) ? noteColor(instruments[instrument], beat) : defaultColor}} 
-										key={i} onClick={() => {
-											updateInstrumentLoop(i, instruments[instrument]);
-					 					}}/>
+						return <button className="beat-button"
+							style={{ backgroundColor: isInstrumentSelected(i, instruments[instrument]) ? noteColor(instruments[instrument], beat) : defaultColor }}
+							key={i} onClick={() => {
+								updateInstrumentLoop(i, instruments[instrument]);
+							}} />
 					})}
 				</div>
 			})
@@ -131,21 +131,21 @@ export const PlayNote = ({bpm, note, octave, setOctave, loop, setLoop, notesPerM
 		{/* <button onClick={stopLoop}>stopLoop</button> */}
 		<div className="play-controls">
 			<Button variant="outlined"
-					color="success" 
-					onClick={playTestInstrument}
-					startIcon={<PlayCircleOutlineIcon />}>
+				color="success"
+				onClick={playTestInstrument}
+				startIcon={<PlayCircleOutlineIcon />}>
 				Play
 			</Button>
 			<Button variant="outlined"
-					color="success" 
-					onClick={stopLoop}
-					startIcon={<PauseCircleOutlineIcon />}>
+				color="success"
+				onClick={stopLoop}
+				startIcon={<PauseCircleOutlineIcon />}>
 				Stop
 			</Button>
 		</div>
 
-		<MIDISounds ref={(ref) => (setMidiSounds(ref))} drums={Object.values(drums)} instruments={Object.values(instruments)}/>
-	</div>	
+		<MIDISounds ref={(ref) => (setMidiSounds(ref))} drums={Object.values(drums)} instruments={Object.values(instruments)} />
+	</div>
 };
 
 export default PlayNote;
