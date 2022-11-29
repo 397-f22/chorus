@@ -16,7 +16,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useDbData, useDbUpdate } from './utilities/firebase';
 
 
-const Main = ({id}) => {
+export const Main = ({id}) => {
   const [bpm, setBpm] = useState(120);
   const [note, setNote] = useState(60);
   const [octave, setOctave] = useState(0);
@@ -25,6 +25,7 @@ const Main = ({id}) => {
 	const [loop, setLoop] = useState(emptyBeatArray(measures, notesPerMeasure));
   const [data, error] = useDbData(`/${id}/loop`);
   const [update, result] = useDbUpdate(`/${id}`);
+  const [isPlayed, setIsPlayed] = useState(false);
 
   if (data === null) {
     update({
@@ -58,7 +59,7 @@ const Main = ({id}) => {
           </Tooltip>
         </div>
 
-        <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure}/>
+        <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure} isPlayed={isPlayed} setIsPlayed={setIsPlayed}/>
         <NoteSelectorBar note={note} setNote={setNote} octave={octave} setOctave={setOctave}></NoteSelectorBar>
   		</div>
       

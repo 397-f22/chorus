@@ -24,5 +24,28 @@ describe ('Test App', () => {
       cy.get('[data-cy=61-unselected]').click();
       cy.get('[data-cy=61-selected]').should('exist');
     });
-  
+
+    it ('settiing BPM value to 20', () => {
+      cy.visit ('/0');
+      cy.get('[id=outlined-number]').focus().type("{selectall}").type("20").should('have.value', '20')
+    });
+
+    it ('press play button', () => {
+      cy.visit ('/0');
+      cy.get('[data-cy=play-btn]').click();
+      cy.get('[data-cy=status-playing]').should('exist');
+    });
+
+    it ('press stop button', () => {
+      cy.visit ('/0');
+      cy.get('[data-cy=stop-btn]').click();
+      cy.get('[data-cy=status-stop]').should('exist');
+    });
+
+    it ('press the first button of bass drum row', () => {
+      cy.visit ('/0');
+      cy.get('[id=beat-button-bass-drum-0]').click();
+      cy.get('[data-cy=selected-beat]').should('exist');
+    });
+
   });

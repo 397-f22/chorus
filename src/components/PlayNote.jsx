@@ -8,8 +8,9 @@ import { Button } from '@mui/material';
 import { printBeats } from '../utilities/printBeats.js';
 
 
-export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure }) => {
-	const defaultColor = "#EEEEEE"
+export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed }) => {
+	const defaultColor = "#EEEEEE";
+
 
 	const instruments = {
 		"Piano": 4,
@@ -42,11 +43,13 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 		if (midiSounds) {
 			console.log(loop);
 			midiSounds.startPlayLoop(loop, bpm, 1 / notesPerMeasure);
+			setIsPlayed(true);
 		}
 	}
 
 	const stopLoop = () => {
 		midiSounds.stopPlayLoop();
+		setIsPlayed(false);
 	}
 
 	const updateDrumLoop = (i, drum) => {
@@ -104,7 +107,7 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 				return <div className="row" key={idx}>
 					<div className="instrument-label">{drum}:</div>
 					{loop.map((beat, i) => {
-						return <button className="beat-button" data-cy={isDrumSelected(i, drums[drum]) ? "selected-beat" : "unselected-beat"}
+						return <button id={`beat-button-${drum.replace(" ", "-").toLowerCase()}-${i}`} className="beat-button" data-cy={isDrumSelected(i, drums[drum]) ? "selected-beat" : "unselected-beat"}
 							style={{ backgroundColor: isDrumSelected(i, drums[drum]) ? "black" : defaultColor }}
 							key={i} onClick={() => {
 								updateDrumLoop(i, drums[drum]);
@@ -132,12 +135,14 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 		<div className="play-controls">
 			<Button variant="outlined"
 				color="success"
+				data-cy="play-btn"
 				onClick={playTestInstrument}
 				startIcon={<PlayCircleOutlineIcon />}>
 				Play
 			</Button>
 			<Button variant="outlined"
 				color="success"
+				data-cy="stop-btn"
 				onClick={stopLoop}
 				startIcon={<PauseCircleOutlineIcon />}>
 				Stop
@@ -145,6 +150,8 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 		</div>
 
 		<MIDISounds ref={(ref) => (setMidiSounds(ref))} drums={Object.values(drums)} instruments={Object.values(instruments)} />
+
+		<div data-cy={isPlayed ? "status-playing" : "status-stop"}></div>
 	</div>
 };
 
