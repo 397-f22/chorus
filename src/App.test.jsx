@@ -18,6 +18,10 @@ describe("loop test", () => {
     // console.log(([["",""],[[1],""],["",[[1,[1],1]]],[[1],[[1,[1],1]]],[[1,2],[[1,[1],1],[2,[2],2]]]]));
     expect(JSON.stringify(convertLoop(beats))===JSON.stringify([["",""],[[1],""],["",[[1,[1],1]]],[[1],[[1,[1],1]]],[[1,2],[[1,[1],1],[2,[2],2]]]])).toBeTruthy();
   })
+  it ('reverts', async () => {
+    const news = [["",""],[[1],""],["",[[1,[1],1]]],[[1],[[1,[1],1]]],[[1,2],[[1,[1],1],[2,[2],2]]]];
+    //TODO:finish test case revert loop
+  })
 })
 
   it('load example loads correct loop') 
