@@ -1,6 +1,10 @@
-export const emptyBeatArray = (measures, notesPerMeasure) => (new Array(measures * notesPerMeasure).fill(undefined).map(x => [[], []]));
+export const emptyBeatArray = (measures, notesPerMeasure) => (new Array(measures * notesPerMeasure).fill(undefined).map(x => [[],[]]));
 
-// add function that turns empty arrays into empty strings
+export const convertLoop = (loop) => (loop.map(beat => beat.map(
+    x => 
+    {
+        return x.length == 0 ? "" : x}
+)));
 
 export const neverGonnaGiveYouUp = [
     [[35, 27], [[4, [45], 1 / 16]]], [[], [[4, [47], 1 / 16]]], [[35], [[4, [50], 1 / 16]]], [[], [[4, [47], 1 / 16]]],
