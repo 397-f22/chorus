@@ -1,16 +1,25 @@
 import { useState } from 'react';
+import { json } from 'react-router-dom';
+import { useDbData, useDbUpdate } from '../utilities/firebase';
+import { emptyBeatArray } from '../utilities/loops';
 
 const Homepage = () => {
   const [joinId, setJoinId] = useState("");
+  const [update, result] = useDbUpdate(`/sessions/`);
 
-  const goToSession = () => {
-    window.location.href = "/session/" + joinId;
+  const goToSession = (joinId_) => {
+    window.location.href = "/session/" + joinId_;
+
   }
 
-  const goToNewSession = () => {
-    setJoinId(Math.floor(1000 + Math.random() * 9000));
+  const goToNewSession = (joinId_) => {
     // make a database entry
-    goToSession();
+    
+    
+   
+    
+    goToSession(joinId_);
+    
   }
 
   const updateJoinId = (event) => {
@@ -40,7 +49,9 @@ const Homepage = () => {
 
       <div className='new-session-button'>
         {/* <button type="button" onClick={goToElection}>New Election</button> */}
-        <button type="button" className="btn btn-dark btn-rounded" onClick={goToSession}>New Session</button>
+        <button type="button" className="btn btn-dark btn-rounded" onClick={() => {
+          goToNewSession(Math.floor(1000 + Math.random() * 9000));
+        }}>New Session</button>
       </div>
 
     </div>

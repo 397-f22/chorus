@@ -7,13 +7,14 @@ import NotesPerMeasureSelector from './components/NotesPerMeasureSelector';
 import Homepage from './components/Homepage';
 import { NoteSelectorBar } from './components/NoteSelectorBar.jsx'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import { emptyBeatArray, neverGonnaGiveYouUp } from "./utilities/loops.js"
 import { Button, IconButton, Tooltip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useDbData, useDbUpdate } from './utilities/firebase';
+
 
 
 export const Main = ({id}) => {
@@ -23,15 +24,32 @@ export const Main = ({id}) => {
   const [measures, setMeasures] = useState(4);
   const [notesPerMeasure, setNotesPerMeasure] = useState(16);
 	const [loop, setLoop] = useState(emptyBeatArray(measures, notesPerMeasure));
-  const [data, error] = useDbData(`/${id}/loop`);
-  const [update, result] = useDbUpdate(`/${id}`);
+  const [data, error] = useDbData(`/sessions`);
+  const [update, result] = useDbUpdate(`/sessions/${id}`);
   const [isPlayed, setIsPlayed] = useState(false);
 
-  if (data === null) {
-    update({
-      "loop": loop
-    })
-    console.log(result);
+  // if (data === null) {
+  //   update({
+  //     "loop": loop
+  //   })
+  //   console.log(result);
+  // }
+
+  if (data) {
+    console.log(Object.keys(data));
+    if (Object.keys(data).includes(id)) {
+
+      console.log("ok");
+    }
+    else {
+      console.log("updating:")
+      update(
+        {"loop": JSON.stringify(loop)}
+      )
+    }
+      
+    
+
   }
 
   return (
@@ -75,6 +93,8 @@ const MainForUrl = () => {
   </div>;
 };
 
+
+
 const App = () => {
   const [count, setCount] = useState(0);
   const [user, setUser] = useState(0);
@@ -90,7 +110,7 @@ const App = () => {
               <Homepage />
             </div>
           } />
-          <Route path="/:id" element={
+          <Route path="/session/:id" element={
             <div>
               <MainForUrl />
             </div>
