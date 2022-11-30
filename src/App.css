@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  font-family: 'PT Sans',"Roboto","Helvetica","Arial", sans-serif;
+  font-family: 'PT Sans', "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .App-logo {
@@ -84,10 +84,7 @@ button {
 
 .instrument-label {
   min-width: 150px;
-<<<<<<< HEAD
-  font-family: 'PT Sans', "Roboto", "Helvetica", "Arial", sans-serif;
-=======
->>>>>>> 39e1dcb6d64d20d8b85eeb70986d1a63d9aea653
+
 }
 
 .MIDISounds {
@@ -108,7 +105,6 @@ button {
   margin: 0 5px;
 }
 
-<<<<<<< HEAD
 .background-image {
   background-image: url('./background.jpg');
   background-size: cover;
@@ -117,24 +113,4 @@ button {
   padding: 0;
   height: 100vh;
 
-=======
-.join-with-code{
-  margin: 10px 0;
-}
-
-.cover-div{
-  width: 90%;
-  max-width: 300px;
-  margin: 10px auto;
-}
-
-.cover-div img{
-  width: 100%;
-}
-
-#code-chip {
-  width: 200px;
-  font-size: 20px;
-  margin: 10px auto;
->>>>>>> 39e1dcb6d64d20d8b85eeb70986d1a63d9aea653
 }
