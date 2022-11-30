@@ -7,14 +7,17 @@ import NotesPerMeasureSelector from './components/NotesPerMeasureSelector';
 import Homepage from './components/Homepage';
 import { NoteSelectorBar } from './components/NoteSelectorBar.jsx'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import { emptyBeatArray, neverGonnaGiveYouUp } from "./utilities/loops.js"
-import { Button, IconButton, Tooltip } from '@mui/material';
+import { Button, IconButton, Tooltip, CircularProgress, Chip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useDbData, useDbUpdate } from './utilities/firebase';
 
+const goToHomepage = () => {
+  window.location.href = "/";
+}
 
 export const Main = ({id}) => {
   const [bpm, setBpm] = useState(120);
@@ -22,30 +25,38 @@ export const Main = ({id}) => {
   const [octave, setOctave] = useState(0);
   const [measures, setMeasures] = useState(4);
   const [notesPerMeasure, setNotesPerMeasure] = useState(16);
-	const [loop, setLoop] = useState(emptyBeatArray(measures, notesPerMeasure));
-  const [data, error] = useDbData(`/${id}/loop`);
-  const [update, result] = useDbUpdate(`/${id}`);
+  const [data, error] = useDbData(`/sessions/${id}`);
   const [isPlayed, setIsPlayed] = useState(false);
+  const [loop, setLoop] = useState(emptyBeatArray(measures, notesPerMeasure));
+  const [update, result] = useDbUpdate(`/sessions/${id}`);
 
-  if (data === null) {
-    update({
-      "loop": loop
-    })
-    console.log(result);
-  }
+  useEffect(() => {
+    // Update the document title using the browser API
+    if (data != undefined){
+      setLoop(JSON.parse(data.loop))
+    }
+  });
+
+  if (error) return <h1>Error loading data: {error.toString()}</h1>;
+  if (data === undefined) return <CircularProgress color="success" />;
+
+  const updateLoopToDb = (loopArr) => {
+		update(
+			{"loop": JSON.stringify(loopArr)}
+		)
+	}
 
   return (
     <div className='KeyListener'>
-      <div className='header'>
-        <img className='logo' src={logo} />
-      </div>
       <div className='flex-col' style={{marginLeft: "20px"}}>
+        <Chip label={`Code: ${id}`} color="success" id="code-chip"/>
         <div className='flex-row' style={{marginTop: "20px", justifyContent: "space-evenly"}}>
           <BpmSelector bpm={bpm} setBpm={setBpm}/>
           <Button variant="outlined"
                   color="success" 
                   onClick={() => {
                     setLoop([...neverGonnaGiveYouUp]);
+                    updateLoopToDb([...neverGonnaGiveYouUp]);
                     setBpm(111);
                   }}
                   style={{width: "fit-content"}}
@@ -53,13 +64,16 @@ export const Main = ({id}) => {
               Load Example 1
           </Button>
           <Tooltip title={"Delete Track"}>
-            <IconButton variant="outlined" onClick={() => setLoop(emptyBeatArray(measures, notesPerMeasure))} data-cy={"Delete"}>
+            <IconButton variant="outlined" onClick={() => {
+                setLoop(emptyBeatArray(measures, notesPerMeasure))
+                updateLoopToDb(emptyBeatArray(measures, notesPerMeasure));
+              }} data-cy={"Delete"}>
               <DeleteIcon/>
             </IconButton>
           </Tooltip>
         </div>
 
-        <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure} isPlayed={isPlayed} setIsPlayed={setIsPlayed}/>
+        <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure} isPlayed={isPlayed} setIsPlayed={setIsPlayed} id={id}/>
         <NoteSelectorBar note={note} setNote={setNote} octave={octave} setOctave={setOctave}></NoteSelectorBar>
   		</div>
       
@@ -75,6 +89,8 @@ const MainForUrl = () => {
   </div>;
 };
 
+
+
 const App = () => {
   const [count, setCount] = useState(0);
   const [user, setUser] = useState(0);
@@ -83,6 +99,9 @@ const App = () => {
 
   return (
     <div className="App">
+      <div className='header'>
+        <img className='logo' src={logo} onClick={goToHomepage}/>
+      </div>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={
@@ -90,7 +109,7 @@ const App = () => {
               <Homepage />
             </div>
           } />
-          <Route path="/:id" element={
+          <Route path="/session/:id" element={
             <div>
               <MainForUrl />
             </div>

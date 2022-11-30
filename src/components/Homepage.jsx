@@ -1,16 +1,22 @@
 import { useState } from 'react';
+import { json } from 'react-router-dom';
+import { useDbData, useDbUpdate } from '../utilities/firebase';
+import { emptyBeatArray } from '../utilities/loops';
+import { Button, TextField } from '@mui/material';
+import cover from '../cover.png';
 
 const Homepage = () => {
   const [joinId, setJoinId] = useState("");
+  const [update, result] = useDbUpdate(`/sessions/`);
 
-  const goToSession = () => {
-    window.location.href = "/session/" + joinId;
+  const goToSession = (joinId_) => {
+    window.location.href = "/session/" + joinId_;
+
   }
 
-  const goToNewSession = () => {
-    setJoinId(Math.floor(1000 + Math.random() * 9000));
+  const goToNewSession = (joinId_) => {
     // make a database entry
-    goToSession();
+    goToSession(joinId_);
   }
 
   const updateJoinId = (event) => {
@@ -20,27 +26,36 @@ const Homepage = () => {
   return (
     <div className="container">
 
-      <div className="icon-div">
-        <img src="" alt="chorus icon" />
+      <div className="cover-div">
+        <img src={cover} alt="chorus icon" />
       </div>
 
       <div className="enter-code-form">
         <form className="join-with-code">
-
           <div className="join-with-code-field">
-            <label id="join-with-code-text" for="fname">Join With Code:</label>
-            <input type="text" id="code" name="code" value={joinId} onChange={updateJoinId} />
+            <div id="join-with-code-text" for="fname">Join With Code:</div>
+            <TextField
+                hiddenLabel
+                id="code"
+                variant="outlined"
+                value={joinId}
+                color="success"
+                size="small"
+                onChange={updateJoinId}
+            />
           </div>
-
           <div className="join-with-code-btn" style={{ marginTop: "10px" }}>
-            <button type="button" className="btn btn-dark btn-rounded btn-lg" style={{ paddingRight: "100px", paddingLeft: "100px" }} onClick={goToSession}>Join</button>
+            <Button variant="contained" color="success" onClick={()=>goToSession(joinId)}>JOIN</Button>
           </div>
         </form>
       </div>
 
-      <div className='new-session-button'>
-        {/* <button type="button" onClick={goToElection}>New Election</button> */}
-        <button type="button" className="btn btn-dark btn-rounded" onClick={goToSession}>New Session</button>
+      <div>-- OR --</div>
+
+      <div className='new-session-button' style={{ marginTop: "10px" }}>
+        <Button variant="outlined" color="success" onClick={() => {
+          goToNewSession(Math.floor(1000 + Math.random() * 9000));
+        }}>New Session</Button>
       </div>
 
     </div>
