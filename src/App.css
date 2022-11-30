@@ -128,6 +128,16 @@ button {
 .white-background{
   width: 30%;
   margin: 0 auto;
-  background-color: white;
+  padding-top: 50px;
+  /* background-color: white; */
   padding-bottom: 10px;
 }
+
+.MuiFormControl-root {
+  background-color: #AAAAAA;
+}
+
+.enter-code-form {
+  padding: 20px;
+}
+
