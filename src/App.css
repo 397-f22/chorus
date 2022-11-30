@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: 'PT Sans',"Roboto","Helvetica","Arial", sans-serif;
 }
 
 .App-logo {
@@ -82,7 +83,6 @@ button {
 
 .instrument-label {
   min-width: 150px;
-  font-family: 'PT Sans',"Roboto","Helvetica","Arial", sans-serif;
 }
 
 .MIDISounds{
@@ -121,5 +121,4 @@ button {
   width: 200px;
   font-size: 20px;
   margin: 10px auto;
-  font-family: 'PT Sans',"Roboto","Helvetica","Arial", sans-serif;
 }
