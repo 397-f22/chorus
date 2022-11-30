@@ -26,38 +26,39 @@ const Homepage = () => {
   return (
     <div className="container">
 
-      <div className="cover-div">
-        <img src={cover} alt="chorus icon" />
+      <div class="white-background">
+        <div className="cover-div">
+          <img src={cover} alt="chorus icon" />
+        </div>
+
+        <div className="enter-code-form">
+          <form className="join-with-code">
+            <div className="join-with-code-field">
+              <div id="join-with-code-text" for="fname">Join With Code:</div>
+              <TextField
+                  hiddenLabel
+                  id="code"
+                  variant="outlined"
+                  value={joinId}
+                  color="success"
+                  size="small"
+                  onChange={updateJoinId}
+              />
+            </div>
+            <div className="join-with-code-btn" style={{ marginTop: "10px" }}>
+              <Button variant="contained" color="success" onClick={()=>goToSession(joinId)}>JOIN</Button>
+            </div>
+          </form>
+        </div>
+
+        <div>-- OR --</div>
+
+        <div className='new-session-button' style={{ marginTop: "10px" }}>
+          <Button variant="outlined" color="success" onClick={() => {
+            goToNewSession(Math.floor(1000 + Math.random() * 9000));
+          }}>New Session</Button>
+        </div>
       </div>
-
-      <div className="enter-code-form">
-        <form className="join-with-code">
-          <div className="join-with-code-field">
-            <div id="join-with-code-text" for="fname">Join With Code:</div>
-            <TextField
-                hiddenLabel
-                id="code"
-                variant="outlined"
-                value={joinId}
-                color="success"
-                size="small"
-                onChange={updateJoinId}
-            />
-          </div>
-          <div className="join-with-code-btn" style={{ marginTop: "10px" }}>
-            <Button variant="contained" color="success" onClick={()=>goToSession(joinId)}>JOIN</Button>
-          </div>
-        </form>
-      </div>
-
-      <div>-- OR --</div>
-
-      <div className='new-session-button' style={{ marginTop: "10px" }}>
-        <Button variant="outlined" color="success" onClick={() => {
-          goToNewSession(Math.floor(1000 + Math.random() * 9000));
-        }}>New Session</Button>
-      </div>
-
     </div>
   );
 }

@@ -105,12 +105,29 @@ button {
   margin: 0 5px;
 }
 
-.background-image {
+.container {
   background-image: url('./background.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   margin: 0;
   padding: 0;
   height: 100vh;
+}
 
+.cover-div{
+  max-width: 300px;
+  padding-top: 10px;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.cover-div img{
+  width: 100%;
+}
+
+.white-background{
+  width: 30%;
+  margin: 0 auto;
+  background-color: white;
+  padding-bottom: 10px;
 }
