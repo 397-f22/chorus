@@ -141,3 +141,7 @@ button {
   padding: 20px;
 }
 
+#join-with-code-text {
+  padding: 10px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
