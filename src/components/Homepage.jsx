@@ -14,12 +14,7 @@ const Homepage = () => {
 
   const goToNewSession = (joinId_) => {
     // make a database entry
-    
-    
-   
-    
     goToSession(joinId_);
-    
   }
 
   const updateJoinId = (event) => {
@@ -42,7 +37,7 @@ const Homepage = () => {
           </div>
 
           <div className="join-with-code-btn" style={{ marginTop: "10px" }}>
-            <button type="button" className="btn btn-dark btn-rounded btn-lg" style={{ paddingRight: "100px", paddingLeft: "100px" }} onClick={goToSession}>Join</button>
+            <button type="button" className="btn btn-dark btn-rounded btn-lg" style={{ paddingRight: "100px", paddingLeft: "100px" }} onClick={()=>goToSession(joinId)}>Join</button>
           </div>
         </form>
       </div>

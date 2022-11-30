@@ -6,9 +6,10 @@ import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import { Button } from '@mui/material';
 import { printBeats } from '../utilities/printBeats.js';
+import { useDbData, useDbUpdate } from '../utilities/firebase';
 
 
-export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed }) => {
+export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed, id }) => {
 	const defaultColor = "#EEEEEE";
 
 
@@ -38,6 +39,7 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 	}
 
 	const [midiSounds, setMidiSounds] = useState(undefined);
+	const [update, result] = useDbUpdate(`/sessions/${id}`);
 
 	const playTestInstrument = (key) => {
 		if (midiSounds) {
@@ -60,6 +62,7 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 			loopCopy[i][0] = [...loopCopy[i][0], drum];
 		}
 		setLoop(loopCopy);
+		updateLoopToDb(loopCopy);
 	}
 
 	const includesInstrument = (instrumentArray, instrument) => {
@@ -75,6 +78,7 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 		}
 		setLoop(loopCopy);
 		//console.log(printBeats(loopCopy))
+		updateLoopToDb(loopCopy);
 	}
 
 	const isDrumSelected = (i, drum) => {
@@ -99,6 +103,12 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 		const note = beatForInstrument[1];
 		//console.log(note + (12 * octave))
 		return toColor(note + (12 * octave));
+	}
+
+	const updateLoopToDb = (loopArr) => {
+		update(
+			{"loop": JSON.stringify(loopArr)}
+		)
 	}
 
 	return <div style={{ marginTop: "20px" }}>

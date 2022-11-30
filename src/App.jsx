@@ -15,7 +15,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useDbData, useDbUpdate } from './utilities/firebase';
 
-
+const goToHomepage = () => {
+  window.location.href = "/";
+}
 
 export const Main = ({id}) => {
   const [bpm, setBpm] = useState(120);
@@ -23,40 +25,29 @@ export const Main = ({id}) => {
   const [octave, setOctave] = useState(0);
   const [measures, setMeasures] = useState(4);
   const [notesPerMeasure, setNotesPerMeasure] = useState(16);
-	const [loop, setLoop] = useState(emptyBeatArray(measures, notesPerMeasure));
-  const [data, error] = useDbData(`/sessions`);
-  const [update, result] = useDbUpdate(`/sessions/${id}`);
+  const [data, error] = useDbData(`/sessions/${id}`);
   const [isPlayed, setIsPlayed] = useState(false);
+  const [loop, setLoop] = useState(emptyBeatArray(measures, notesPerMeasure));
+  const [update, result] = useDbUpdate(`/sessions/${id}`);
 
-  // if (data === null) {
-  //   update({
-  //     "loop": loop
-  //   })
-  //   console.log(result);
-  // }
-
-  if (data) {
-    console.log(Object.keys(data));
-    if (Object.keys(data).includes(id)) {
-
-      console.log("ok");
+  useEffect(() => {
+    // Update the document title using the browser API
+    if (data != undefined){
+      setLoop(JSON.parse(data.loop))
     }
-    else {
-      console.log("updating:")
-      update(
-        {"loop": JSON.stringify(loop)}
-      )
-    }
-      
-    
+  });
 
-  }
+  if (error) return <h1>Error loading data: {error.toString()}</h1>;
+  if (data === undefined) return <h1>Loading data...</h1>;
+
+  const updateLoopToDb = (loopArr) => {
+		update(
+			{"loop": JSON.stringify(loopArr)}
+		)
+	}
 
   return (
     <div className='KeyListener'>
-      <div className='header'>
-        <img className='logo' src={logo} />
-      </div>
       <div className='flex-col' style={{marginLeft: "20px"}}>
         <div className='flex-row' style={{marginTop: "20px", justifyContent: "space-evenly"}}>
           <BpmSelector bpm={bpm} setBpm={setBpm}/>
@@ -64,6 +55,7 @@ export const Main = ({id}) => {
                   color="success" 
                   onClick={() => {
                     setLoop([...neverGonnaGiveYouUp]);
+                    updateLoopToDb([...neverGonnaGiveYouUp]);
                     setBpm(111);
                   }}
                   style={{width: "fit-content"}}
@@ -71,13 +63,16 @@ export const Main = ({id}) => {
               Load Example 1
           </Button>
           <Tooltip title={"Delete Track"}>
-            <IconButton variant="outlined" onClick={() => setLoop(emptyBeatArray(measures, notesPerMeasure))} data-cy={"Delete"}>
+            <IconButton variant="outlined" onClick={() => {
+                setLoop(emptyBeatArray(measures, notesPerMeasure))
+                updateLoopToDb(emptyBeatArray(measures, notesPerMeasure));
+              }} data-cy={"Delete"}>
               <DeleteIcon/>
             </IconButton>
           </Tooltip>
         </div>
 
-        <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure} isPlayed={isPlayed} setIsPlayed={setIsPlayed}/>
+        <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure} isPlayed={isPlayed} setIsPlayed={setIsPlayed} id={id}/>
         <NoteSelectorBar note={note} setNote={setNote} octave={octave} setOctave={setOctave}></NoteSelectorBar>
   		</div>
       
@@ -103,6 +98,9 @@ const App = () => {
 
   return (
     <div className="App">
+      <div className='header'>
+        <img className='logo' src={logo} onClick={goToHomepage}/>
+      </div>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={
