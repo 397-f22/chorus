@@ -116,3 +116,10 @@ button {
 .cover-div img{
   width: 100%;
 }
+
+#code-chip {
+  width: 200px;
+  font-size: 20px;
+  margin: 10px auto;
+  font-family: 'PT Sans',"Roboto","Helvetica","Arial", sans-serif;
+}

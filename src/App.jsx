@@ -10,7 +10,7 @@ import { NoteSelectorBar } from './components/NoteSelectorBar.jsx'
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import { emptyBeatArray, neverGonnaGiveYouUp } from "./utilities/loops.js"
-import { Button, IconButton, Tooltip } from '@mui/material';
+import { Button, IconButton, Tooltip, CircularProgress, Chip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useDbData, useDbUpdate } from './utilities/firebase';
@@ -38,7 +38,7 @@ export const Main = ({id}) => {
   });
 
   if (error) return <h1>Error loading data: {error.toString()}</h1>;
-  if (data === undefined) return <h1>Loading data...</h1>;
+  if (data === undefined) return <CircularProgress color="success" />;
 
   const updateLoopToDb = (loopArr) => {
 		update(
@@ -49,6 +49,7 @@ export const Main = ({id}) => {
   return (
     <div className='KeyListener'>
       <div className='flex-col' style={{marginLeft: "20px"}}>
+        <Chip label={`Code: ${id}`} color="success" id="code-chip"/>
         <div className='flex-row' style={{marginTop: "20px", justifyContent: "space-evenly"}}>
           <BpmSelector bpm={bpm} setBpm={setBpm}/>
           <Button variant="outlined"
