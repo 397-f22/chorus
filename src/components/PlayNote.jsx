@@ -12,7 +12,7 @@ import LoopProgressIndicator from './LoopProgressIndicator';
 	
 export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed, beatIndex, setBeatIndex, id ,loopStartTime, setLoopStartTime}) => {
 	const defaultColor = "#EEEEEE";
-  const [loopIntervalID, setLoopIntervalID] = useState(undefined);
+  	const [loopIntervalID, setLoopIntervalID] = useState(undefined);
 
 	const instruments = {
 		"Piano": 4,
@@ -116,13 +116,7 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 	}
 
 	return <div style={{ marginTop: "20px" }}>
-		<LoopProgressIndicator 
-          bpm={bpm} 
-          numberOfBeats={64} 
-		  midiSounds = {midiSounds}
-          isPlayed={isPlayed}
-          loopStartTime={loopStartTime} 
-          setLoopStartTime={setLoopStartTime}/>
+		<LoopProgressIndicator midiSounds = {midiSounds} isPlayed={isPlayed}/>
 		{
 			Object.keys(drums).map((drum, idx) => {
 				return <div className="row" key={idx}>
