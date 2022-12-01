@@ -9,7 +9,7 @@ import { printBeats } from '../utilities/printBeats.js';
 import { useDbData, useDbUpdate } from '../utilities/firebase';
 
 	
-export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed, beatIndex, setBeatIndex, id }) => {
+export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed, beatIndex, setBeatIndex, id ,loopStartTime, setLoopStartTime}) => {
 	const defaultColor = "#EEEEEE";
   const [loopIntervalID, setLoopIntervalID] = useState(undefined);
 
@@ -46,6 +46,8 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 		if (midiSounds) {
 			console.log(loop);
 			midiSounds.startPlayLoop(loop, bpm, 1/notesPerMeasure);
+			setLoopStartTime(new Date().valueOf())
+			console.log(new Date().valueOf())
 		}
 	}
 

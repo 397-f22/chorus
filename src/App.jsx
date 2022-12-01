@@ -32,6 +32,7 @@ export const Main = ({id}) => {
   const [loop, setLoop] = useState(emptyBeatArray(measures, notesPerMeasure));
   const [beatIndex, setBeatIndex] = useState(0);
   const [update, result] = useDbUpdate(`/sessions/${id}`);
+  const [loopStartTime, setLoopStartTime] = useState(undefined)
 
   useEffect(() => {
     // Update the document title using the browser API
@@ -75,11 +76,17 @@ export const Main = ({id}) => {
             </IconButton>
           </Tooltip>
         </div>
-
+        <LoopProgressIndicator 
+          bpm={bpm} 
+          numberOfBeats={measures*notesPerMeasure} 
+          isPlayed={isPlayed}
+          loopStartTime={loopStartTime} 
+          setLoopStartTime={setLoopStartTime}/>
         <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} 
                   loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure} 
                   isPlayed={isPlayed} setIsPlayed={setIsPlayed} id={id}
-                  beatIndex={beatIndex} setBeatIndex={setBeatIndex}/>
+                  beatIndex={beatIndex} setBeatIndex={setBeatIndex}
+                  loopStartTime={loopStartTime} setLoopStartTime={setLoopStartTime}/>
         <NoteSelectorBar note={note} setNote={setNote} octave={octave} setOctave={setOctave}></NoteSelectorBar>
   		</div>
       
