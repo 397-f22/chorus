@@ -3,7 +3,7 @@ import { json } from 'react-router-dom';
 import { useDbData, useDbUpdate } from '../utilities/firebase';
 import { emptyBeatArray } from '../utilities/loops';
 import { Button, TextField } from '@mui/material';
-import cover from '../cover.png';
+import cover from '../chorus_icon.png';
 
 const Homepage = () => {
   const [joinId, setJoinId] = useState("");

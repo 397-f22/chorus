@@ -128,13 +128,28 @@ button {
 .white-background{
   width: 30%;
   margin: 0 auto;
-  background-color: white;
+  padding-top: 50px;
+  /* background-color: white; */
   padding-bottom: 10px;
 }
+
+
+.MuiFormControl-root {
+  background-color: #AAAAAA;
+}
+
+.enter-code-form {
+  padding: 20px;
+}
+
+#join-with-code-text {
+  padding: 10px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
 #code-chip {
   width: 200px;
   font-size: 20px;
   margin: 10px auto;
   font-family: 'PT Sans',"Roboto","Helvetica","Arial", sans-serif;
+
 }

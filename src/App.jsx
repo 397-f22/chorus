@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from './chorus_icon_white.png';
 import './App.css';
 import PlayNote from './components/PlayNote';
 import BpmSelector from './components/BpmSelector';
