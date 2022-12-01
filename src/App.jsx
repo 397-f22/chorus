@@ -32,15 +32,19 @@ export const Main = ({id}) => {
     // Update the document title using the browser API
     if (data != undefined){
       setLoop(JSON.parse(data.loop))
+      setBpm(JSON.parse(data.bpm))
     }
   }, [data]);
 
   if (error) return <h1>Error loading data: {error.toString()}</h1>;
   if (data === undefined) return <CircularProgress color="success" />;
 
-  const updateLoopToDb = (loopArr) => {
+  const updateLoopToDb = (loopArr, bpmVal) => {
 		update(
-			{"loop": JSON.stringify(loopArr)}
+			{
+        "loop": JSON.stringify(loopArr),
+        "bpm": bpmVal
+      }
 		)
 	}
 
@@ -49,13 +53,13 @@ export const Main = ({id}) => {
       <div className='flex-col' style={{marginLeft: "20px"}}>
         <Chip label={`Code: ${id}`} color="success" id="code-chip"/>
         <div className='flex-row' style={{marginTop: "20px", justifyContent: "space-evenly"}}>
-          <BpmSelector bpm={bpm} setBpm={setBpm}/>
+          <BpmSelector bpm={bpm} setBpm={setBpm} id={id}/>
           <Button variant="outlined"
                   color="success" 
                   onClick={() => {
                     setLoop([...neverGonnaGiveYouUp]);
-                    updateLoopToDb([...neverGonnaGiveYouUp]);
                     setBpm(111);
+                    updateLoopToDb([...neverGonnaGiveYouUp], 111);
                   }}
                   style={{width: "fit-content"}}
                   data-cy={"load-example-1"}>
@@ -64,7 +68,8 @@ export const Main = ({id}) => {
           <Tooltip title={"Delete Track"}>
             <IconButton variant="outlined" onClick={() => {
                 setLoop(emptyBeatArray(measures, notesPerMeasure))
-                updateLoopToDb(emptyBeatArray(measures, notesPerMeasure));
+                setBpm(120);
+                updateLoopToDb(emptyBeatArray(measures, notesPerMeasure), 120);
               }} data-cy={"Delete"}>
               <DeleteIcon/>
             </IconButton>

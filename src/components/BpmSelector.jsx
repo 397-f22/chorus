@@ -1,18 +1,31 @@
 import { TextField } from '@mui/material';
+import { useDbUpdate } from '../utilities/firebase';
 
-export const BpmSelector = ({bpm, setBpm}) => {
+export const BpmSelector = ({bpm, setBpm, id}) => {
     const max = 999;
     const min = 1;
+    const [update, result] = useDbUpdate(`/sessions/${id}`);
+
+    const updateBpmToDb = (bpmVal) => {
+		update(
+			{
+                "bpm": bpmVal
+            }
+		)
+	}
 
     const onBpmChange = (event) => {
         if (Number(event.target.value) > max) {
             setBpm(max);
+            updateBpmToDb(max);
         }
         else if (Number(event.target.value) < min) {
             setBpm(min);
+            updateBpmToDb(min);
         }
         else {
             setBpm(event.target.value);
+            updateBpmToDb(event.target.value);
         }
     }
 

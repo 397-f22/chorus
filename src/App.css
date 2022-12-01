@@ -106,14 +106,15 @@ button {
 }
 
 .moving-bar-box {
-  border: 5px solid grey;
-  width: 1020px;
+  border: 2px solid grey;
+  width: 1022px;
   height: 46px;
-  margin-left: 145px;
+  margin-left: 148px;
+  margin-bottom: 10px
 }
 
 .moving-bar-box .bar {
-  width: 5px;
+  width: 3px;
   height: 46px;
   background-color: lightgreen;
   position: relative;

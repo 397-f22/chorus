@@ -6,8 +6,9 @@ const Homepage = () => {
   const [joinId, setJoinId] = useState("");
 
   const goToSession = (joinId_) => {
-    window.location.href = "/session/" + joinId_;
-
+    if(joinId_){
+      window.location.href = "/session/" + joinId_;
+    }
   }
 
   const goToNewSession = (joinId_) => {
