@@ -79,7 +79,7 @@ button {
   flex-direction: row;
   /* justify-content: space-between; */
   flex-wrap: wrap;
-  height: 2rem;
+  height: 28px;
 }
 
 .instrument-labels-column {
@@ -108,7 +108,8 @@ button {
 }
 
 .play-controls {
-  margin: 20px 0;
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
 
 .play-controls button {
@@ -117,15 +118,15 @@ button {
 
 .moving-bar-box {
   border: 2px solid grey;
-  width: 1022px;
-  height: 46px;
+  width: 1024px;
   margin-bottom: 10px;
   align-self: center;
+  background-color: white;
 }
 
 .moving-bar-box .bar {
-  width: 3px;
-  height: 46px;
+  width: 4px;
+  height: 100%;
   background-color: lightgreen;
   position: relative;
 }

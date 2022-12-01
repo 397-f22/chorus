@@ -50,9 +50,9 @@ export const Main = ({id}) => {
 
   return (
     <div className='KeyListener'>
-      <div className='flex-col' style={{marginLeft: "20px"}}>
+      <div className='flex-col'>
         <Chip label={`Code: ${id}`} color="success" id="code-chip"/>
-        <div className='flex-row' style={{ justifyContent: "space-evenly"}}>
+        <div className='flex-row' style={{ justifyContent: "space-evenly", marginTop: "10px", marginBottom: "10px"}}>
           <div style={{flex: 1}}>
             <BpmSelector bpm={bpm} setBpm={setBpm} id={id}/>
           </div>

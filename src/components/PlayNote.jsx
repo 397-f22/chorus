@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MIDISounds from 'midi-sounds-react';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
@@ -7,6 +7,7 @@ import { useDbUpdate } from '../utilities/firebase';
 import LoopProgressIndicator from './LoopProgressIndicator';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import StopIcon from '@mui/icons-material/Stop';
 	
 export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed, id }) => {
 	const defaultColor = "#EEEEEE";
@@ -45,12 +46,18 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 	const startLoop = () => {
 		if (midiSounds) {
 			setIsPlayed(true);
-			midiSounds.startPlayLoop(loop, bpm, 1/notesPerMeasure);
+			midiSounds.startPlayLoop(loop, bpm, 1/notesPerMeasure, midiSounds.beatIndex);
 		}
+	}
+
+	const pauseLoop = () => {
+		setIsPlayed(false);
+		midiSounds.stopPlayLoop();
 	}
 
 	const stopLoop = () => {
 		setIsPlayed(false);
+		midiSounds.beatIndex = 0;
 		midiSounds.stopPlayLoop();
 	}
 
@@ -111,8 +118,10 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 		)
 	}
 
+	const [beatIndex, setBeatIndex] = useState(0);
+
 	return <div style={{ marginTop: "10px", display: "flex", flexDirection: "column"}}>
-		<div className='flex-row' style={{alignSelf: "center", marginBottom: "10px"}}>
+		<div className='flex-row' style={{alignSelf: "center", marginBottom: "50px"}}>
 			<ToggleButtonGroup value={drums} onChange={handleDrumsChange} style={{marginRight: "20px"}} color="success">
 				{Object.keys(drumsMap).map(drum => <ToggleButton value={drum}>{drum}</ToggleButton>)}
 			</ToggleButtonGroup>
@@ -122,9 +131,11 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 			</ToggleButtonGroup>			
 		</div>
 
-		<LoopProgressIndicator midiSounds = {midiSounds} isPlayed={isPlayed}/>
+		<LoopProgressIndicator midiSounds = {midiSounds} isPlayed={isPlayed} beatIndex={beatIndex} setBeatIndex={setBeatIndex} height={28 * (drums.length + instruments.length)}/>
 
-		<div style={{display: "flex", flexDirection: "row", height: "100%"}}>
+		<div style={{display: "flex", flexDirection: "row", height: "100%", position: "relative", 
+					 bottom: (28 * (drums.length + instruments.length) + 12), 
+					 marginBottom: -(28 * (drums.length + instruments.length) + 12)}}>
 			<div className="instrument-labels-column">
 				{drums.map((drum, idx) => {
 					return <div className="row" key={idx}>
@@ -140,47 +151,53 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 			</div>
 
 			<div className="instrument-loops-column">
-				{drums.map((drum, idx) => {
-					return <div className="row" key={idx}>
-						{loop.map((beat, i) => {
-							return <button id={`beat-button-${drum.replace(" ", "-").toLowerCase()}-${i}`} className="beat-button" data-cy={isDrumSelected(i, drumsMap[drum]) ? "selected-beat" : "unselected-beat"}
-								style={{ backgroundColor: isDrumSelected(i, drumsMap[drum]) ? "black" : defaultColor }}
-								key={i} onClick={() => {
-									updateDrumLoop(i, drumsMap[drum]);
-								}} />
-						})}
+				{drums.map((drum, idx) => 
+					<div className="row" key={idx}>
+						{loop.map((_, i) =>
+							<button id={`beat-button-${drum.replace(" ", "-").toLowerCase()}-${i}`} className="beat-button" 
+									data-cy={isDrumSelected(i, drumsMap[drum]) ? "selected-beat" : "unselected-beat"}
+									style={{ backgroundColor: isDrumSelected(i, drumsMap[drum]) ? "black" : defaultColor }}
+									key={i} onClick={() => updateDrumLoop(i, drumsMap[drum])}/>)}
 					</div>
-				})}
+				)}
 
-				{instruments.map((instrument, idx) => {
-					return <div className="row" key={idx}>
-						{loop.map((beat, i) => {
-							return <button className="beat-button" id={`beat-button-${instrument.replace(" ", "-").toLowerCase()}-${i}`} data-cy={isInstrumentSelected(i, instrumentsMap[instrument]) ? "selected-beat" : "unselected-beat"}
-								style={{ backgroundColor: isInstrumentSelected(i, instrumentsMap[instrument]) ? noteColor(instrumentsMap[instrument], beat) : defaultColor }}
-								key={i} onClick={() => {
-									updateInstrumentLoop(i, instrumentsMap[instrument]);
-								}} />
-						})}
+				{instruments.map((instrument, idx) =>
+					<div className="row" key={idx}>
+						{loop.map((beat, i) => 
+							<button className="beat-button" id={`beat-button-${instrument.replace(" ", "-").toLowerCase()}-${i}`}
+									data-cy={isInstrumentSelected(i, instrumentsMap[instrument]) ? "selected-beat" : "unselected-beat"}
+									style={{ backgroundColor: isInstrumentSelected(i, instrumentsMap[instrument]) ? noteColor(instrumentsMap[instrument], beat) : defaultColor }}
+									key={i} onClick={() => updateInstrumentLoop(i, instrumentsMap[instrument])}/>)}
 					</div>
-				})}
+				)}
 			</div>
 
 			<div className="instrument-labels-column"/>
 		</div>
 
 		<div className="play-controls">
-			<Button variant={isPlayed ? "contained" : "outlined"}
+			{isPlayed ? <Button variant={"contained"}
+				color="success"
+				data-cy="stop-btn"
+				onClick={pauseLoop}
+				startIcon={<PauseCircleOutlineIcon />}
+				style={{width: "105px"}}>
+				Pause
+			</Button> : 
+			<Button variant={"outlined"}
 				color="success"
 				data-cy="play-btn"
 				onClick={startLoop}
-				startIcon={<PlayCircleOutlineIcon />}>
+				startIcon={<PlayCircleOutlineIcon />}
+				style={{width: "105px"}}>
 				Play
-			</Button>
-			<Button variant={isPlayed ? "outlined" : "contained"}
+			</Button>}
+			<Button variant={beatIndex > 0 ? "contained" : "outlined"}
 				color="success"
-				data-cy="stop-btn"
+				data-cy="play-btn"
 				onClick={stopLoop}
-				startIcon={<PauseCircleOutlineIcon />}>
+				startIcon={<StopIcon />}
+				style={{width: "105px"}}>
 				Stop
 			</Button>
 		</div>

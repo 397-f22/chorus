@@ -34,5 +34,3 @@ export const NoteSelectorBar = ({note, setNote, octave, setOctave}) => {
         </ButtonGroup>
     )
 }
-
-
