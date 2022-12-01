@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import MIDISounds from 'midi-sounds-react';
 import { DataObjectSharp } from '@mui/icons-material';
 import { FormControl, Select, MenuItem, InputLabel } from '@mui/material';
+import "../App.css"
 
 
 export const Freestyle = () => {
@@ -81,23 +82,31 @@ export const Freestyle = () => {
 		};
 	}, [])
 
-	return <div>
-		<FormControl halfWidth>
-		<InputLabel id="instument-label">instument</InputLabel>
-		<Select
-			labelId="instument-label"
-			id="demo-simple-select"
-			value={selectedInstrument}
-			label="instument"
-			onChange={handleChange}
-		>
-			<MenuItem value={1}>Ten</MenuItem>
-			<MenuItem value={2}>Twenty</MenuItem>
-			<MenuItem value={3}>Thirty</MenuItem>
-		</Select>
-		</FormControl>
-		<MIDISounds ref={(ref) => (setMidiSounds(ref))} drums={Object.values(drumsMap)} instruments={Object.values(instrumentsMap)} />
-	</div>
+	return (
+		<div>
+
+			<div className="soloSelector">
+				<FormControl halfWidth style={{width: "200px"}}>
+					<InputLabel id="instrument-label" style={{width: "fit-content"}}>Solo Instrument</InputLabel>
+						<Select
+							labelId="instrument-label"
+							id="demo-simple-select"
+							value={selectedInstrument}
+							label="Solo Instrument"
+							onChange={handleChange}
+						>
+							{Object.keys(instrumentsMap).map((x, i) =>
+								<MenuItem value={i}>{x}</MenuItem>
+							)}
+							
+						</Select>
+				</FormControl>
+			</div>
+			<MIDISounds ref={(ref) => (setMidiSounds(ref))} drums={Object.values(drumsMap)} instruments={Object.values(instrumentsMap)} />
+
+
+		</div>
+	)
 }
 
 export default Freestyle;

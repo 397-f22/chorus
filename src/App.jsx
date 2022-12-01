@@ -93,8 +93,9 @@ export const Main = ({ id }) => {
         <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave}
           loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure}
           isPlayed={isPlayed} setIsPlayed={setIsPlayed} id={id} selectedInstrument={selectedInstrument} setSelectedInstrument={setSelectedInstrument} />
-        <Freestyle selectedInstrument={selectedInstrument} setSelectedInstrument={setSelectedInstrument} />
         <NoteSelectorBar note={note} setNote={setNote} octave={octave} setOctave={setOctave}></NoteSelectorBar>
+        <Freestyle selectedInstrument={selectedInstrument} setSelectedInstrument={setSelectedInstrument} />
+
         {/* <div>
         <Piano/>
         </div> */}
