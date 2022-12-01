@@ -116,6 +116,7 @@ button {
   height: 46px;
   background-color: lightgreen;
   position: relative;
+}
 
 .container {
   background-image: url('./background.jpg');

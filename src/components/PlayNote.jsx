@@ -42,46 +42,16 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 	const [update, result] = useDbUpdate(`/sessions/${id}`);
 
 	const startLoop = (key) => {
-		console.log(midiSounds.beatIndex);
+		console.log(beatIndex);
 		if (midiSounds) {
 			console.log(loop);
-			setIsPlayed(true);
-			startPlayLoop(loop, 1/16, 0);
+			midiSounds.startPlayLoop(loop, bpm, 1/notesPerMeasure);
 		}
-	}
-
-	const startPlayLoop = (beats, density, fromBeat) => {
-		midiSounds.stopPlayLoop();
-		var wholeNoteDuration = 4 * 60 / bpm;
-		if(fromBeat<beats.length){
-			setBeatIndex(fromBeat);
-		}else{
-			setBeatIndex(0);
-		} 
-		midiSounds.playBeatAt(midiSounds.contextTime(), beats[beatIndex], bpm);
-		var nextLoopTime = midiSounds.contextTime() + density * wholeNoteDuration;
-		setLoopIntervalID(setInterval(function () {
-			if (midiSounds.contextTime() > nextLoopTime - density * wholeNoteDuration ) {
-				setBeatIndex(x => x + 1);
-				if (beatIndex >= beats.length) {
-					setBeatIndex(0);
-				}
-				midiSounds.playBeatAt(nextLoopTime, beats[beatIndex], bpm);
-				nextLoopTime = nextLoopTime + density * wholeNoteDuration;
-			}
-		}, 22));
 	}
 
 	const stopLoop = () => {
 		setIsPlayed(false);
-		stopPlayLoop();
-	}
-
-	const stopPlayLoop = () => {
-		clearInterval(loopIntervalID);
-		this.cancelQueue();
-
-		setIsPlayed(false);
+		midiSounds.stopPlayLoop();
 	}
 
 	const updateDrumLoop = (i, drum) => {
@@ -176,7 +146,7 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 			<Button variant="outlined"
 				color="success"
 				data-cy="play-btn"
-				onClick={playTestInstrument}
+				onClick={startLoop}
 				startIcon={<PlayCircleOutlineIcon />}>
 				Play
 			</Button>

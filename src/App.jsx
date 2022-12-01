@@ -30,6 +30,7 @@ export const Main = ({id}) => {
   const [data, error] = useDbData(`/sessions/${id}`);
   const [isPlayed, setIsPlayed] = useState(false);
   const [loop, setLoop] = useState(emptyBeatArray(measures, notesPerMeasure));
+  const [beatIndex, setBeatIndex] = useState(0);
   const [update, result] = useDbUpdate(`/sessions/${id}`);
 
   useEffect(() => {
@@ -75,7 +76,10 @@ export const Main = ({id}) => {
           </Tooltip>
         </div>
 
-        <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure} isPlayed={isPlayed} setIsPlayed={setIsPlayed} id={id}/>
+        <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} 
+                  loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure} 
+                  isPlayed={isPlayed} setIsPlayed={setIsPlayed} id={id}
+                  beatIndex={beatIndex} setBeatIndex={setBeatIndex}/>
         <NoteSelectorBar note={note} setNote={setNote} octave={octave} setOctave={setOctave}></NoteSelectorBar>
   		</div>
       
