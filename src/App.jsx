@@ -10,6 +10,7 @@ import { emptyBeatArray, neverGonnaGiveYouUp } from "./utilities/loops.js"
 import { Button, IconButton, Tooltip, CircularProgress, Chip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDbData, useDbUpdate } from './utilities/firebase';
+import Freestyle from './components/Freestyle';
 
 const goToHomepage = () => {
   window.location.href = "/";
@@ -48,8 +49,15 @@ export const Main = ({id}) => {
 		)
 	}
 
+  function handleKeyPress(e) {
+    var key = e.key;
+    console.log( "You pressed a key: " + key );
+    
+    
+  }    
+
   return (
-    <div className='KeyListener'>
+    <div className='KeyListener' onKeyPress={(e) => handleKeyPress(e)}>
       <div className='flex-col'>
         <Chip label={`Code: ${id}`} color="success" id="code-chip"/>
         <div className='flex-row' style={{ justifyContent: "space-evenly", marginTop: "10px", marginBottom: "10px"}}>
@@ -84,6 +92,7 @@ export const Main = ({id}) => {
         <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} 
                   loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure} 
                   isPlayed={isPlayed} setIsPlayed={setIsPlayed} id={id}/>
+        <Freestyle />
         <NoteSelectorBar note={note} setNote={setNote} octave={octave} setOctave={setOctave}></NoteSelectorBar>
   		</div>
       
