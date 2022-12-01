@@ -3,6 +3,7 @@ import {fireEvent, render, screen} from '@testing-library/react';
 import { printBeats } from './utilities/printBeats';
 import App from './App';
 import { convertLoop } from './utilities/loops';
+import Homepage from './components/Homepage';
 
 describe('function tests', () => {
   it('printBeats works', async () => {
@@ -22,7 +23,14 @@ describe("loop test", () => {
     const news = [["",""],[[1],""],["",[[1,[1],1]]],[[1],[[1,[1],1]]],[[1,2],[[1,[1],1],[2,[2],2]]]];
     //TODO:finish test case revert loop
   })
+  it ('testing homepage', async () => {
+    const beats = [[[],[]],[[1],[]],[[],[[1,[1],1]]],[[1],[[1,[1],1]]],[[1,2],[[1,[1],1],[2,[2],2]]]];
+    //TODO:finish test case revert loop
+    render (<Homepage />)
+    await screen.getByText(/Join With Code/);
+  })
 })
 
-  it('load example loads correct loop') 
+
+
 });

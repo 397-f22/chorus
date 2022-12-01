@@ -7,6 +7,7 @@ import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import { Button } from '@mui/material';
 import { printBeats } from '../utilities/printBeats.js';
 import { useDbData, useDbUpdate } from '../utilities/firebase';
+import LoopProgressIndicator from './LoopProgressIndicator';
 
 	
 export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed, beatIndex, setBeatIndex, id ,loopStartTime, setLoopStartTime}) => {
@@ -45,6 +46,7 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 		console.log(beatIndex);
 		if (midiSounds) {
 			console.log(loop);
+			setIsPlayed(true);
 			midiSounds.startPlayLoop(loop, bpm, 1/notesPerMeasure);
 			setLoopStartTime(new Date().valueOf())
 			console.log(new Date().valueOf())
@@ -114,6 +116,13 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 	}
 
 	return <div style={{ marginTop: "20px" }}>
+		<LoopProgressIndicator 
+          bpm={bpm} 
+          numberOfBeats={64} 
+		  midiSounds = {midiSounds}
+          isPlayed={isPlayed}
+          loopStartTime={loopStartTime} 
+          setLoopStartTime={setLoopStartTime}/>
 		{
 			Object.keys(drums).map((drum, idx) => {
 				return <div className="row" key={idx}>
@@ -145,14 +154,14 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 		{/* <button onClick={startLoop}>playLoop</button> */}
 		{/* <button onClick={stopLoop}>stopLoop</button> */}
 		<div className="play-controls">
-			<Button variant="outlined"
+			<Button variant={isPlayed ? "contained" : "outlined"}
 				color="success"
 				data-cy="play-btn"
 				onClick={startLoop}
 				startIcon={<PlayCircleOutlineIcon />}>
 				Play
 			</Button>
-			<Button variant="outlined"
+			<Button variant={isPlayed ? "outlined" : "contained"}
 				color="success"
 				data-cy="stop-btn"
 				onClick={stopLoop}

@@ -76,12 +76,6 @@ export const Main = ({id}) => {
             </IconButton>
           </Tooltip>
         </div>
-        <LoopProgressIndicator 
-          bpm={bpm} 
-          numberOfBeats={measures*notesPerMeasure} 
-          isPlayed={isPlayed}
-          loopStartTime={loopStartTime} 
-          setLoopStartTime={setLoopStartTime}/>
         <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} 
                   loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure} 
                   isPlayed={isPlayed} setIsPlayed={setIsPlayed} id={id}

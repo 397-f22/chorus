@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 
 
-const LoopProgressIndicator = ({bpm, numberOfBeats, isPlayed, beatIndex, loopStartTime, setLoopStartTime}) => {
+const LoopProgressIndicator = ({bpm, numberOfBeats, isPlayed, beatIndex, loopStartTime, setLoopStartTime, midiSounds}) => {
     const shiftAmount = 16; //pixel
     const totalTime = numberOfBeats * (1/bpm) * 60 * 1000; //milliseconds
     const timePerShift = totalTime / (numberOfBeats * 4);
@@ -19,25 +19,34 @@ const LoopProgressIndicator = ({bpm, numberOfBeats, isPlayed, beatIndex, loopSta
 
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            const pos = width * ((Date.now().valueOf() - loopStartTime)%totalTime / totalTime)
-            setPosition(pos)
-            console.log('position:', pos)
-        }, 1000);
-        
+        if (midiSounds) {
+            console.log(midiSounds.beatIndex);
+            setPosition(midiSounds.beatIndex);
+        // const interval = setInterval(() => {
+        //     const pos = width * ((Date.now().valueOf() - loopStartTime)%totalTime / totalTime)
+        //     setPosition(pos)
+        //     //console.log('position:', pos)
+        // }, 1000);
+        }
     });
 
     const width = 1020
 
-    return (
+    return midiSounds && (
         <div style={{
             border: "5px solid grey",
             width: width,
             height: "46px",
             marginLeft: "145px"
           }}>
-            {/* <div className="bar" style={{left: beatIndex * 16 + "px"}}/> */}
-            <div style={
+            <div className="bar" style={{
+                    width: "5px", 
+                    height: "46px",
+                    backgroundColor: "lightgreen",
+                    position: "relative", 
+                    left: midiSounds.beatIndex * 16 + "px", 
+                    transition: "1s ease"}}/>
+            {/* <div style={
                 {
                     left: position,
                     width: "5px",
@@ -45,7 +54,7 @@ const LoopProgressIndicator = ({bpm, numberOfBeats, isPlayed, beatIndex, loopSta
                     backgroundColor: "lightgreen",
                     position: "relative"
                   }
-                }/>
+                }/> */}
         </div>
     )
 }
