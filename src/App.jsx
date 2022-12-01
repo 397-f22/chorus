@@ -17,7 +17,7 @@ const goToHomepage = () => {
   window.location.href = "/";
 }
 
-export const Main = ({id}) => {
+export const Main = ({ id }) => {
   const [bpm, setBpm] = useState(120);
   const [note, setNote] = useState(60);
   const [octave, setOctave] = useState(0);
@@ -27,12 +27,13 @@ export const Main = ({id}) => {
   const [isPlayed, setIsPlayed] = useState(false);
   const [loop, setLoop] = useState(emptyBeatArray(measures, notesPerMeasure));
   const [beatIndex, setBeatIndex] = useState(0);
+  const [selectedInstrument, setSelectedInstrument] = useState(0);
   const [update, result] = useDbUpdate(`/sessions/${id}`);
   const [loopStartTime, setLoopStartTime] = useState(undefined)
 
   useEffect(() => {
     // Update the document title using the browser API
-    if (data != undefined){
+    if (data != undefined) {
       setLoop(JSON.parse(data.loop))
       setBpm(JSON.parse(data.bpm))
     }
@@ -42,63 +43,63 @@ export const Main = ({id}) => {
   if (data === undefined) return <CircularProgress color="success" />;
 
   const updateLoopToDb = (loopArr, bpmVal) => {
-		update(
-			{
+    update(
+      {
         "loop": JSON.stringify(loopArr),
         "bpm": bpmVal
       }
-		)
-	}
+    )
+  }
 
   function handleKeyPress(e) {
     var key = e.key;
-    console.log( "You pressed a key: " + key );
-    
-  }    
+    console.log("You pressed a key: " + key);
+
+  }
 
   return (
     <div className='KeyListener' onKeyPress={(e) => handleKeyPress(e)}>
       <div className='flex-col'>
-        <Chip label={`Code: ${id}`} color="success" id="code-chip"/>
-        <div className='flex-row' style={{ justifyContent: "space-evenly", marginTop: "10px", marginBottom: "10px"}}>
-          <div style={{flex: 1}}>
-            <BpmSelector bpm={bpm} setBpm={setBpm} id={id}/>
+        <Chip label={`Code: ${id}`} color="success" id="code-chip" />
+        <div className='flex-row' style={{ justifyContent: "space-evenly", marginTop: "10px", marginBottom: "10px" }}>
+          <div style={{ flex: 1 }}>
+            <BpmSelector bpm={bpm} setBpm={setBpm} id={id} />
           </div>
-          <div style={{flex: 1}}>
+          <div style={{ flex: 1 }}>
             <Button variant="outlined"
-                    color="success" 
-                    onClick={() => {
-                      setLoop([...neverGonnaGiveYouUp]);
-                      setBpm(111);
-                      updateLoopToDb([...neverGonnaGiveYouUp], 111);
-                    }}
-                    style={{width: "fit-content", height: "100%"}}
-                    data-cy={"load-example-1"}>
-                Load Example 1
+              color="success"
+              onClick={() => {
+                setLoop([...neverGonnaGiveYouUp]);
+                setBpm(111);
+                updateLoopToDb([...neverGonnaGiveYouUp], 111);
+              }}
+              style={{ width: "fit-content", height: "100%" }}
+              data-cy={"load-example-1"}>
+              Load Example 1
             </Button>
           </div>
-          <div style={{flex: 1}}>
+          <div style={{ flex: 1 }}>
             <Tooltip title={"Delete Track"}>
               <IconButton variant="outlined" onClick={() => {
-                  setLoop(emptyBeatArray(measures, notesPerMeasure))
-                  setBpm(120);
-                  updateLoopToDb(emptyBeatArray(measures, notesPerMeasure), 120);
-                }} data-cy={"Delete"}>
-                <DeleteIcon/>
+                setLoop(emptyBeatArray(measures, notesPerMeasure))
+                setBpm(120);
+                updateLoopToDb(emptyBeatArray(measures, notesPerMeasure), 120);
+              }} data-cy={"Delete"}>
+                <DeleteIcon />
               </IconButton>
             </Tooltip>
           </div>
         </div>
-        <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} 
-                  loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure} 
-                  isPlayed={isPlayed} setIsPlayed={setIsPlayed} id={id}/>
-        <Freestyle />
+        <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave}
+          loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure}
+          isPlayed={isPlayed} setIsPlayed={setIsPlayed} id={id} selectedInstrument={selectedInstrument} setSelectedInstrument={setSelectedInstrument} />
+        <Freestyle selectedInstrument={selectedInstrument} setSelectedInstrument={setSelectedInstrument} />
         <NoteSelectorBar note={note} setNote={setNote} octave={octave} setOctave={setOctave}></NoteSelectorBar>
         {/* <div>
         <Piano/>
         </div> */}
-  		</div>
-      
+      </div>
+
     </div>
   );
 };
@@ -107,7 +108,7 @@ const MainForUrl = () => {
   const { id } = useParams();
 
   return <div>
-    <Main id={id}/>
+    <Main id={id} />
   </div>;
 };
 
@@ -122,7 +123,7 @@ const App = () => {
   return (
     <div className="App">
       <div className='header'>
-        <img className='logo' src={logo} onClick={goToHomepage}/>
+        <img className='logo' src={logo} onClick={goToHomepage} />
       </div>
       <BrowserRouter>
         <Routes>

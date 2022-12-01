@@ -9,7 +9,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import StopIcon from '@mui/icons-material/Stop';
 	
-export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed, id }) => {
+export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed, id, selectedInstrument, setSelectedInstrument }) => {
 	const defaultColor = "#EEEEEE";
 	const [instruments, setInstruments] = useState(["Piano", "Acoustic guitar"])
 	const [drums, setDrums] = useState(["Bass drum", "Hand clap", "Hi-hat", "Rimshot", "Snare drum"])
