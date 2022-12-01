@@ -35,7 +35,7 @@ export const Main = ({id}) => {
     if (data != undefined){
       setLoop(JSON.parse(data.loop))
     }
-  });
+  }, [data]);
 
   if (error) return <h1>Error loading data: {error.toString()}</h1>;
   if (data === undefined) return <CircularProgress color="success" />;
