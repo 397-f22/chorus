@@ -114,7 +114,8 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 
 	const updateLoopToDb = (loopArr) => {
 		update(
-			{"loop": JSON.stringify(loopArr)}
+			{"loop": JSON.stringify(loopArr),
+			 "bpm": JSON.stringify(bpm)}
 		)
 	}
 

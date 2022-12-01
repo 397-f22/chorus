@@ -1,7 +1,9 @@
 import {useState, useEffect} from 'react';
+import MIDISounds from 'midi-sounds-react';
+import { DataObjectSharp } from '@mui/icons-material';
 
 export const Freestyle = () => {
-    var octave = 0;
+    var octave = 5;
     const [midiSounds, setMidiSounds] = useState(undefined);
 
     const instrumentsMap = {
@@ -23,7 +25,18 @@ export const Freestyle = () => {
 	};
 
 	const keyToNote = {
-		"KeyQ": 1,
+		"q": 0,
+		"w": 1,
+		"e": 2,
+		"r": 3,
+		"t": 4, 
+		"y": 5, 
+		"u": 6, 
+		"i": 7, 
+		"o": 8,
+		"p": 9,
+		"[": 10,
+		"]": 11
 	}
 
 	const handleKeyDown = (event) => {
@@ -39,6 +52,9 @@ export const Freestyle = () => {
             if (octave > 0) {
                 octave--;
             }
+		}
+		else if (Object.keys(keyToNote).includes(event.key)) {
+			midiSounds.playChordNow(instrument, [keyToNote[event.key]], 1);
 		}
 	  };
 

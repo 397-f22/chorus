@@ -11,6 +11,7 @@ import { Button, IconButton, Tooltip, CircularProgress, Chip } from '@mui/materi
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDbData, useDbUpdate } from './utilities/firebase';
 import Freestyle from './components/Freestyle';
+import Piano from './components/Piano';
 
 const goToHomepage = () => {
   window.location.href = "/";
@@ -53,7 +54,6 @@ export const Main = ({id}) => {
     var key = e.key;
     console.log( "You pressed a key: " + key );
     
-    
   }    
 
   return (
@@ -94,6 +94,9 @@ export const Main = ({id}) => {
                   isPlayed={isPlayed} setIsPlayed={setIsPlayed} id={id}/>
         <Freestyle />
         <NoteSelectorBar note={note} setNote={setNote} octave={octave} setOctave={setOctave}></NoteSelectorBar>
+        {/* <div>
+        <Piano/>
+        </div> */}
   		</div>
       
     </div>
