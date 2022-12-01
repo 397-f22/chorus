@@ -3,7 +3,7 @@ import { TextField } from '@mui/material';
 
 export const BpmSelector = ({bpm, setBpm}) => {
     const max = 999;
-    const min = 0
+    const min = 1;
 
     const onBpmChange = (event) => {
         if (Number(event.target.value) > max) {
@@ -19,13 +19,13 @@ export const BpmSelector = ({bpm, setBpm}) => {
 
     return <TextField
             id="outlined-number"
+            data-cy="bpm-input"
             label="BPM"
             type="number"
             InputProps={{ inputProps: { min: min, max: max, step: "1" } }}
             variant="outlined"
             onChange={onBpmChange}
             value={bpm}
-            style={{alignSelf: "flex-start", marginLeft: "20px", minWidth: "148px"}}
         />;
 }
 

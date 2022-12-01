@@ -11,15 +11,16 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signO
 const firebaseConfig = {
   apiKey: "AIzaSyDecFkKoWwTza4RBT9A6eP0omB1iGW8bHQ",
   authDomain: "chorus-79ba5.firebaseapp.com",
+  databaseURL: "https://chorus-79ba5-default-rtdb.firebaseio.com",
   projectId: "chorus-79ba5",
   storageBucket: "chorus-79ba5.appspot.com",
   messagingSenderId: "139621922676",
-  appId: "1:139621922676:web:7ad5060d40bc5bd35b9e21",
-  measurementId: "G-Z4CHZKX4HB"
+  appId: "1:139621922676:web:1b8ff86b54e300075b9e21",
+  measurementId: "G-NKCZS3D4LK"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
 
 export const useDbData = (path) => {

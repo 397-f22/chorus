@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: 'PT Sans', "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .App-logo {
@@ -32,6 +33,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -66,12 +68,13 @@ button {
   color: #fff;
 }
 
-.logo{
+.logo {
   width: 150px;
   margin-left: 10px;
+  cursor: pointer;
 }
 
-.row{
+.row {
   display: flex;
   flex-direction: row;
   /* justify-content: space-between; */
@@ -81,23 +84,24 @@ button {
 
 .instrument-label {
   min-width: 150px;
-  font-family: 'PT Sans',"Roboto","Helvetica","Arial", sans-serif;
+
 }
 
-.MIDISounds{
+.MIDISounds {
   display: none;
 }
 
-.beat-button{
+.beat-button {
   border: none;
   margin: 2px;
+  cursor: pointer;
 }
 
-.play-controls{
+.play-controls {
   margin: 20px 0;
 }
 
-.play-controls button{
+.play-controls button {
   margin: 0 5px;
 }
 
@@ -112,4 +116,51 @@ button {
   height: 46px;
   background-color: lightgreen;
   position: relative;
+
+.container {
+  background-image: url('./background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.cover-div{
+  max-width: 300px;
+  padding-top: 10px;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.cover-div img{
+  width: 100%;
+}
+
+.white-background{
+  width: 30%;
+  margin: 0 auto;
+  padding-top: 50px;
+  /* background-color: white; */
+  padding-bottom: 10px;
+}
+
+.MuiFormControl-root {
+  background-color: #ffffff;
+}
+
+.enter-code-form {
+  padding: 20px;
+}
+
+#join-with-code-text {
+  padding: 10px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#code-chip {
+  width: 200px;
+  font-size: 20px;
+  margin: 10px auto;
+  font-family: 'PT Sans',"Roboto","Helvetica","Arial", sans-serif;
 }
