@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
 import MIDISounds from 'midi-sounds-react';
-import { emptyBeatArray, neverGonnaGiveYouUp } from "../utilities/loops.js"
-import { notes } from './NoteSelectorBar.jsx'
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import { Button } from '@mui/material';
-import { printBeats } from '../utilities/printBeats.js';
-import { useDbData, useDbUpdate } from '../utilities/firebase';
+import { useDbUpdate } from '../utilities/firebase';
 import LoopProgressIndicator from './LoopProgressIndicator';
 
 	
-export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed, beatIndex, setBeatIndex, id ,loopStartTime, setLoopStartTime}) => {
+export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed, id }) => {
 	const defaultColor = "#EEEEEE";
-  	const [loopIntervalID, setLoopIntervalID] = useState(undefined);
 
 	const instruments = {
 		"Piano": 4,
@@ -32,24 +28,13 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 		"Hi-hat": 35
 	};
 
-	const mappings = {
-		"a": 60,
-		"s": 61,
-		"d": 62,
-		"f": 63
-	}
-
 	const [midiSounds, setMidiSounds] = useState(undefined);
 	const [update, result] = useDbUpdate(`/sessions/${id}`);
 
-	const startLoop = (key) => {
-		console.log(beatIndex);
+	const startLoop = () => {
 		if (midiSounds) {
-			console.log(loop);
 			setIsPlayed(true);
 			midiSounds.startPlayLoop(loop, bpm, 1/notesPerMeasure);
-			setLoopStartTime(new Date().valueOf())
-			console.log(new Date().valueOf())
 		}
 	}
 

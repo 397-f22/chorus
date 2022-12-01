@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
 import MIDISounds from 'midi-sounds-react';
 
-
 const instruments = [4, 318, 387, 258, 619, 628, 816]
-const mappings = {
-	"a": 60,
-	"s": 61,
-	"d": 62,
-	"f": 63
-}
 
 class MidiButton extends Component {
 	constructor(props) {
-		console.log("he")
 		super(props);
 		this.state = {
 			selectedInstrument: 4
@@ -22,7 +14,6 @@ class MidiButton extends Component {
 	}
 	
 	componentDidMount() {
-		console.log('componentDidMount App');
 		this.setState(this.state);
 	}
 	onSelectInstrument(e){

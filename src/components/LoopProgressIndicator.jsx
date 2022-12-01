@@ -16,17 +16,8 @@ const LoopProgressIndicator = ({isPlayed, midiSounds}) => {
     });
 
     return midiSounds && (
-        <div style={{
-            border: "5px solid grey",
-            width: "1020px",
-            height: "46px",
-            marginLeft: "145px"
-        }}>
+        <div className="moving-bar-box">
             <div className="bar" style={{
-                    width: "5px", 
-                    height: "46px",
-                    backgroundColor: "lightgreen",
-                    position: "relative", 
                     left: position + "px", 
             }}/>
         </div>

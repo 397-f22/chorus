@@ -2,19 +2,13 @@ import logo from './chorus_icon_white.png';
 import './App.css';
 import PlayNote from './components/PlayNote';
 import BpmSelector from './components/BpmSelector';
-
-import LoopProgressIndicator from './components/LoopProgressIndicator.jsx'
-import MeasuresSelector from './components/MeasuresSelector';
-import NotesPerMeasureSelector from './components/NotesPerMeasureSelector';
 import Homepage from './components/Homepage';
 import { NoteSelectorBar } from './components/NoteSelectorBar.jsx'
-
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import { emptyBeatArray, neverGonnaGiveYouUp } from "./utilities/loops.js"
 import { Button, IconButton, Tooltip, CircularProgress, Chip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import { useDbData, useDbUpdate } from './utilities/firebase';
 
 const goToHomepage = () => {
@@ -78,9 +72,7 @@ export const Main = ({id}) => {
         </div>
         <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} 
                   loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure} 
-                  isPlayed={isPlayed} setIsPlayed={setIsPlayed} id={id}
-                  beatIndex={beatIndex} setBeatIndex={setBeatIndex}
-                  loopStartTime={loopStartTime} setLoopStartTime={setLoopStartTime}/>
+                  isPlayed={isPlayed} setIsPlayed={setIsPlayed} id={id}/>
         <NoteSelectorBar note={note} setNote={setNote} octave={octave} setOctave={setOctave}></NoteSelectorBar>
   		</div>
       

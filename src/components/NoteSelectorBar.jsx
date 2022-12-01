@@ -1,4 +1,3 @@
-// import {note as note_name} from "midi-note" 
 // distinct notes - make a button for each of these 
 // conversion chart: https://miro.medium.com/proxy/1*CDXHKG0-4QO9Y-DCTAcqPg.png
 import React, { useState } from 'react';
@@ -28,11 +27,6 @@ const OctaveButton = ({octave, setOctave, direction}) => {
 
 export const NoteSelectorBar = ({note, setNote, octave, setOctave}) => {
     return (
-        // <div className="flex-row note-container">
-        //     <OctaveButton octave={octave} setOctave={setOctave} direction={1}/>
-        //     <OctaveButton octave={octave} setOctave={setOctave} direction={0}/>
-        //     {notes.map((val, idx) => <NoteButton note={val} noteName={note_names[idx]} setNote={setNote} selectedNote={note}/>)}
-        // </div>
         <ButtonGroup variant="outlined" color="success" aria-label="outlined button group" className="flex-row note-container">
             <OctaveButton octave={octave} setOctave={setOctave} direction={1}/>
             <OctaveButton octave={octave} setOctave={setOctave} direction={0}/>

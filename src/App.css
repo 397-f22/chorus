@@ -109,6 +109,7 @@ button {
   border: 5px solid grey;
   width: 1020px;
   height: 46px;
+  margin-left: 145px;
 }
 
 .moving-bar-box .bar {

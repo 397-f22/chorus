@@ -1,4 +1,3 @@
-import { react, useState } from 'react';
 import { TextField } from '@mui/material';
 
 export const NotesPerMeasureSelector = ({notesPerMeasure, setNotesPerMeasure}) => {
