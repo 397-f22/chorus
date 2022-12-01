@@ -51,14 +51,8 @@ export const Main = ({ id }) => {
     )
   }
 
-  function handleKeyPress(e) {
-    var key = e.key;
-    console.log("You pressed a key: " + key);
-
-  }
-
   return (
-    <div className='KeyListener' onKeyPress={(e) => handleKeyPress(e)}>
+    <div className='KeyListener'>
       <div className='flex-col'>
         <Chip label={`Code: ${id}`} color="success" id="code-chip" />
         <div className='flex-row' style={{ justifyContent: "space-evenly", marginTop: "10px", marginBottom: "10px" }}>

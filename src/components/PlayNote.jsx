@@ -124,11 +124,11 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 	return <div style={{ marginTop: "10px", display: "flex", flexDirection: "column"}}>
 		<div className='flex-row' style={{alignSelf: "center", marginBottom: "50px"}}>
 			<ToggleButtonGroup value={drums} onChange={handleDrumsChange} style={{marginRight: "20px"}} color="success">
-				{Object.keys(drumsMap).map(drum => <ToggleButton value={drum}>{drum}</ToggleButton>)}
+				{Object.keys(drumsMap).map(drum => <ToggleButton value={drum} key={drum}>{drum}</ToggleButton>)}
 			</ToggleButtonGroup>
 			
 			<ToggleButtonGroup value={instruments} onChange={handleInstrumentsChange} color="primary">
-				{Object.keys(instrumentsMap).map(instrument => <ToggleButton value={instrument}>{instrument}</ToggleButton>)}
+				{Object.keys(instrumentsMap).map(instrument => <ToggleButton value={instrument} key={instrument}>{instrument}</ToggleButton>)}
 			</ToggleButtonGroup>			
 		</div>
 

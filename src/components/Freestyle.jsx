@@ -8,7 +8,7 @@ import "../App.css"
 export const Freestyle = () => {
 	var octave = 5;
 	const [midiSounds, setMidiSounds] = useState(undefined);
-	const [selectedInstrument, setSelectedInstrument] = useState(1);
+	const [selectedInstrument, setSelectedInstrument] = useState(4);
 
 	const instrumentsMap = {
 		"Piano": 4,
@@ -43,14 +43,12 @@ export const Freestyle = () => {
 		"]": 11
 	}
 
-	var envelopes = [];
 	const handleKeyDown = (event) => {
 		console.log(event.key);
-		envelopes[keyToNote[event.key] + 12 * octave] = midiSounds.player.queueWaveTable(midiSounds.audioContext
-			, midiSounds.equalizer.input
-			, window[midiSounds.player.loader.instrumentInfo(selectedInstrument).variable]
-			, 0, n, 9999, volume);
 
+		if (!midiSounds) { return };
+
+		console.log("hi")
 
 		if (event.key === "+") {
 			if (octave < 8) {
@@ -64,7 +62,8 @@ export const Freestyle = () => {
 			}
 		}
 		else if (Object.keys(keyToNote).includes(event.key)) {
-			midiSounds.playChordNow(instrument, [keyToNote[event.key]], 1);
+			console.log("play sound: ", selectedInstrument)
+			midiSounds.playChordNow(selectedInstrument, [keyToNote[event.key] + 12 * octave], 1);
 		}
 	};
 
@@ -86,7 +85,7 @@ export const Freestyle = () => {
 		<div>
 
 			<div className="soloSelector">
-				<FormControl halfWidth style={{width: "200px"}}>
+				<FormControl style={{width: "200px"}}>
 					<InputLabel id="instrument-label" style={{width: "fit-content"}}>Solo Instrument</InputLabel>
 						<Select
 							labelId="instrument-label"
@@ -95,16 +94,15 @@ export const Freestyle = () => {
 							label="Solo Instrument"
 							onChange={handleChange}
 						>
-							{Object.keys(instrumentsMap).map((x, i) =>
-								<MenuItem value={i}>{x}</MenuItem>
+							{Object.keys(instrumentsMap).map((x) =>
+								<MenuItem value={instrumentsMap[x]} key={instrumentsMap[x]}>{x}</MenuItem>
 							)}
 							
 						</Select>
 				</FormControl>
 			</div>
+
 			<MIDISounds ref={(ref) => (setMidiSounds(ref))} drums={Object.values(drumsMap)} instruments={Object.values(instrumentsMap)} />
-
-
 		</div>
 	)
 }
