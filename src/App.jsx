@@ -53,27 +53,33 @@ export const Main = ({id}) => {
       <div className='flex-col' style={{marginLeft: "20px"}}>
         <Chip label={`Code: ${id}`} color="success" id="code-chip"/>
         <div className='flex-row' style={{ justifyContent: "space-evenly"}}>
-          <BpmSelector bpm={bpm} setBpm={setBpm} id={id}/>
-          <Button variant="outlined"
-                  color="success" 
-                  onClick={() => {
-                    setLoop([...neverGonnaGiveYouUp]);
-                    setBpm(111);
-                    updateLoopToDb([...neverGonnaGiveYouUp], 111);
-                  }}
-                  style={{width: "fit-content"}}
-                  data-cy={"load-example-1"}>
-              Load Example 1
-          </Button>
-          <Tooltip title={"Delete Track"}>
-            <IconButton variant="outlined" onClick={() => {
-                setLoop(emptyBeatArray(measures, notesPerMeasure))
-                setBpm(120);
-                updateLoopToDb(emptyBeatArray(measures, notesPerMeasure), 120);
-              }} data-cy={"Delete"}>
-              <DeleteIcon/>
-            </IconButton>
-          </Tooltip>
+          <div style={{flex: 1}}>
+            <BpmSelector bpm={bpm} setBpm={setBpm} id={id}/>
+          </div>
+          <div style={{flex: 1}}>
+            <Button variant="outlined"
+                    color="success" 
+                    onClick={() => {
+                      setLoop([...neverGonnaGiveYouUp]);
+                      setBpm(111);
+                      updateLoopToDb([...neverGonnaGiveYouUp], 111);
+                    }}
+                    style={{width: "fit-content", height: "100%"}}
+                    data-cy={"load-example-1"}>
+                Load Example 1
+            </Button>
+          </div>
+          <div style={{flex: 1}}>
+            <Tooltip title={"Delete Track"}>
+              <IconButton variant="outlined" onClick={() => {
+                  setLoop(emptyBeatArray(measures, notesPerMeasure))
+                  setBpm(120);
+                  updateLoopToDb(emptyBeatArray(measures, notesPerMeasure), 120);
+                }} data-cy={"Delete"}>
+                <DeleteIcon/>
+              </IconButton>
+            </Tooltip>
+          </div>
         </div>
         <PlayNote bpm={bpm} note={note} octave={octave} setOctave={setOctave} 
                   loop={loop} setLoop={setLoop} notesPerMeasure={notesPerMeasure} 

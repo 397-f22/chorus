@@ -100,38 +100,53 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 		)
 	}
 
-	return <div style={{ marginTop: "10px" }}>
+	return <div style={{ marginTop: "10px", display: "flex", flexDirection: "column"}}>
 		<LoopProgressIndicator midiSounds = {midiSounds} isPlayed={isPlayed}/>
-		{
-			Object.keys(drums).map((drum, idx) => {
-				return <div className="row" key={idx}>
-					<div className="instrument-label">{drum}:</div>
-					{loop.map((beat, i) => {
-						return <button id={`beat-button-${drum.replace(" ", "-").toLowerCase()}-${i}`} className="beat-button" data-cy={isDrumSelected(i, drums[drum]) ? "selected-beat" : "unselected-beat"}
-							style={{ backgroundColor: isDrumSelected(i, drums[drum]) ? "black" : defaultColor }}
-							key={i} onClick={() => {
-								updateDrumLoop(i, drums[drum]);
-							}} />
-					})}
-				</div>
-			})
-		}
-		{
-			Object.keys(instruments).map((instrument, idx) => {
-				return <div className="row" key={idx}>
-					<div className="instrument-label">{instrument}:</div>
-					{loop.map((beat, i) => {
-						return <button className="beat-button" id={`beat-button-${instrument.replace(" ", "-").toLowerCase()}-${i}`} data-cy={isInstrumentSelected(i, instruments[instrument]) ? "selected-beat" : "unselected-beat"}
-							style={{ backgroundColor: isInstrumentSelected(i, instruments[instrument]) ? noteColor(instruments[instrument], beat) : defaultColor }}
-							key={i} onClick={() => {
-								updateInstrumentLoop(i, instruments[instrument]);
-							}} />
-					})}
-				</div>
-			})
-		}
-		{/* <button onClick={startLoop}>playLoop</button> */}
-		{/* <button onClick={stopLoop}>stopLoop</button> */}
+
+		<div style={{display: "flex", flexDirection: "row", height: "100%"}}>
+			<div className="instrument-labels-column">
+				{Object.keys(drums).map((drum, idx) => {
+					return <div className="row" key={idx}>
+						{drum}:
+					</div>
+				})}
+
+				{Object.keys(instruments).map((instrument, idx) => {
+					return <div className="row" key={idx}>
+						{instrument}:
+					</div>
+				})}
+			</div>
+
+			<div className="instrument-loops-column">
+				{Object.keys(drums).map((drum, idx) => {
+					return <div className="row" key={idx}>
+						{loop.map((beat, i) => {
+							return <button id={`beat-button-${drum.replace(" ", "-").toLowerCase()}-${i}`} className="beat-button" data-cy={isDrumSelected(i, drums[drum]) ? "selected-beat" : "unselected-beat"}
+								style={{ backgroundColor: isDrumSelected(i, drums[drum]) ? "black" : defaultColor }}
+								key={i} onClick={() => {
+									updateDrumLoop(i, drums[drum]);
+								}} />
+						})}
+					</div>
+				})}
+
+				{Object.keys(instruments).map((instrument, idx) => {
+					return <div className="row" key={idx}>
+						{loop.map((beat, i) => {
+							return <button className="beat-button" id={`beat-button-${instrument.replace(" ", "-").toLowerCase()}-${i}`} data-cy={isInstrumentSelected(i, instruments[instrument]) ? "selected-beat" : "unselected-beat"}
+								style={{ backgroundColor: isInstrumentSelected(i, instruments[instrument]) ? noteColor(instruments[instrument], beat) : defaultColor }}
+								key={i} onClick={() => {
+									updateInstrumentLoop(i, instruments[instrument]);
+								}} />
+						})}
+					</div>
+				})}
+			</div>
+
+			<div className="instrument-labels-column"/>
+		</div>
+
 		<div className="play-controls">
 			<Button variant={isPlayed ? "contained" : "outlined"}
 				color="success"
