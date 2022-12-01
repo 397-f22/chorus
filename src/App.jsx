@@ -2,6 +2,8 @@ import logo from './chorus_icon_white.png';
 import './App.css';
 import PlayNote from './components/PlayNote';
 import BpmSelector from './components/BpmSelector';
+
+import LoopProgressIndicator from './components/LoopProgressIndicator.jsx'
 import MeasuresSelector from './components/MeasuresSelector';
 import NotesPerMeasureSelector from './components/NotesPerMeasureSelector';
 import Homepage from './components/Homepage';

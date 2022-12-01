@@ -8,10 +8,10 @@ import { Button } from '@mui/material';
 import { printBeats } from '../utilities/printBeats.js';
 import { useDbData, useDbUpdate } from '../utilities/firebase';
 
-
-export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed, id }) => {
+	
+export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed, beatIndex, setBeatIndex, id }) => {
 	const defaultColor = "#EEEEEE";
-
+  const [loopIntervalID, setLoopIntervalID] = useState(undefined);
 
 	const instruments = {
 		"Piano": 4,
@@ -41,16 +41,46 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 	const [midiSounds, setMidiSounds] = useState(undefined);
 	const [update, result] = useDbUpdate(`/sessions/${id}`);
 
-	const playTestInstrument = (key) => {
+	const startLoop = (key) => {
+		console.log(midiSounds.beatIndex);
 		if (midiSounds) {
 			console.log(loop);
-			midiSounds.startPlayLoop(loop, bpm, 1 / notesPerMeasure);
 			setIsPlayed(true);
+			startPlayLoop(loop, 1/16, 0);
 		}
 	}
 
-	const stopLoop = () => {
+	const startPlayLoop = (beats, density, fromBeat) => {
 		midiSounds.stopPlayLoop();
+		var wholeNoteDuration = 4 * 60 / bpm;
+		if(fromBeat<beats.length){
+			setBeatIndex(fromBeat);
+		}else{
+			setBeatIndex(0);
+		} 
+		midiSounds.playBeatAt(midiSounds.contextTime(), beats[beatIndex], bpm);
+		var nextLoopTime = midiSounds.contextTime() + density * wholeNoteDuration;
+		setLoopIntervalID(setInterval(function () {
+			if (midiSounds.contextTime() > nextLoopTime - density * wholeNoteDuration ) {
+				setBeatIndex(x => x + 1);
+				if (beatIndex >= beats.length) {
+					setBeatIndex(0);
+				}
+				midiSounds.playBeatAt(nextLoopTime, beats[beatIndex], bpm);
+				nextLoopTime = nextLoopTime + density * wholeNoteDuration;
+			}
+		}, 22));
+	}
+
+	const stopLoop = () => {
+		setIsPlayed(false);
+		stopPlayLoop();
+	}
+
+	const stopPlayLoop = () => {
+		clearInterval(loopIntervalID);
+		this.cancelQueue();
+
 		setIsPlayed(false);
 	}
 
@@ -140,7 +170,7 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 				</div>
 			})
 		}
-		{/* <button onClick={playTestInstrument}>playLoop</button> */}
+		{/* <button onClick={startLoop}>playLoop</button> */}
 		{/* <button onClick={stopLoop}>stopLoop</button> */}
 		<div className="play-controls">
 			<Button variant="outlined"
