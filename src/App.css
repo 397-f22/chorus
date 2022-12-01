@@ -93,7 +93,7 @@ button {
 .instrument-loops-column {
   display: flex;
   flex-direction: column;
-  flex: 5;
+  flex: 3;
   align-items: center;
 }
 

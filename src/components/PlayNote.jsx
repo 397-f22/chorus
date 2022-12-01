@@ -5,12 +5,15 @@ import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import { Button } from '@mui/material';
 import { useDbUpdate } from '../utilities/firebase';
 import LoopProgressIndicator from './LoopProgressIndicator';
-
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 	
 export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed, id }) => {
 	const defaultColor = "#EEEEEE";
+	const [instruments, setInstruments] = useState(["Piano", "Acoustic guitar"])
+	const [drums, setDrums] = useState(["Bass drum", "Hand clap", "Hi-hat", "Rimshot", "Snare drum"])
 
-	const instruments = {
+	const instrumentsMap = {
 		"Piano": 4,
 		"Acoustic guitar": 258,
 		"Electric guitar": 318,
@@ -20,12 +23,20 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 		"Bamboo flute": 816
 	};
 
-	const drums = {
+	const drumsMap = {
 		"Bass drum": 3,
-		"Rimshot": 11,
-		"Snare drum": 27,
 		"Hand clap": 22,
-		"Hi-hat": 35
+		"Hi-hat": 35,
+		"Rimshot": 11,
+		"Snare drum": 27
+	};
+
+	const handleDrumsChange = (event, newDrums) => {
+		setDrums(newDrums);
+	};
+
+	const handleInstrumentsChange = (event, newInstruments) => {
+		setInstruments(newInstruments);
 	};
 
 	const [midiSounds, setMidiSounds] = useState(undefined);
@@ -101,17 +112,27 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 	}
 
 	return <div style={{ marginTop: "10px", display: "flex", flexDirection: "column"}}>
+		<div className='flex-row' style={{alignSelf: "center", marginBottom: "10px"}}>
+			<ToggleButtonGroup value={drums} onChange={handleDrumsChange} style={{marginRight: "20px"}} color="success">
+				{Object.keys(drumsMap).map(drum => <ToggleButton value={drum}>{drum}</ToggleButton>)}
+			</ToggleButtonGroup>
+			
+			<ToggleButtonGroup value={instruments} onChange={handleInstrumentsChange} color="primary">
+				{Object.keys(instrumentsMap).map(instrument => <ToggleButton value={instrument}>{instrument}</ToggleButton>)}
+			</ToggleButtonGroup>			
+		</div>
+
 		<LoopProgressIndicator midiSounds = {midiSounds} isPlayed={isPlayed}/>
 
 		<div style={{display: "flex", flexDirection: "row", height: "100%"}}>
 			<div className="instrument-labels-column">
-				{Object.keys(drums).map((drum, idx) => {
+				{drums.map((drum, idx) => {
 					return <div className="row" key={idx}>
 						{drum}:
 					</div>
 				})}
 
-				{Object.keys(instruments).map((instrument, idx) => {
+				{instruments.map((instrument, idx) => {
 					return <div className="row" key={idx}>
 						{instrument}:
 					</div>
@@ -119,25 +140,25 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 			</div>
 
 			<div className="instrument-loops-column">
-				{Object.keys(drums).map((drum, idx) => {
+				{drums.map((drum, idx) => {
 					return <div className="row" key={idx}>
 						{loop.map((beat, i) => {
-							return <button id={`beat-button-${drum.replace(" ", "-").toLowerCase()}-${i}`} className="beat-button" data-cy={isDrumSelected(i, drums[drum]) ? "selected-beat" : "unselected-beat"}
-								style={{ backgroundColor: isDrumSelected(i, drums[drum]) ? "black" : defaultColor }}
+							return <button id={`beat-button-${drum.replace(" ", "-").toLowerCase()}-${i}`} className="beat-button" data-cy={isDrumSelected(i, drumsMap[drum]) ? "selected-beat" : "unselected-beat"}
+								style={{ backgroundColor: isDrumSelected(i, drumsMap[drum]) ? "black" : defaultColor }}
 								key={i} onClick={() => {
-									updateDrumLoop(i, drums[drum]);
+									updateDrumLoop(i, drumsMap[drum]);
 								}} />
 						})}
 					</div>
 				})}
 
-				{Object.keys(instruments).map((instrument, idx) => {
+				{instruments.map((instrument, idx) => {
 					return <div className="row" key={idx}>
 						{loop.map((beat, i) => {
-							return <button className="beat-button" id={`beat-button-${instrument.replace(" ", "-").toLowerCase()}-${i}`} data-cy={isInstrumentSelected(i, instruments[instrument]) ? "selected-beat" : "unselected-beat"}
-								style={{ backgroundColor: isInstrumentSelected(i, instruments[instrument]) ? noteColor(instruments[instrument], beat) : defaultColor }}
+							return <button className="beat-button" id={`beat-button-${instrument.replace(" ", "-").toLowerCase()}-${i}`} data-cy={isInstrumentSelected(i, instrumentsMap[instrument]) ? "selected-beat" : "unselected-beat"}
+								style={{ backgroundColor: isInstrumentSelected(i, instrumentsMap[instrument]) ? noteColor(instrumentsMap[instrument], beat) : defaultColor }}
 								key={i} onClick={() => {
-									updateInstrumentLoop(i, instruments[instrument]);
+									updateInstrumentLoop(i, instrumentsMap[instrument]);
 								}} />
 						})}
 					</div>
@@ -164,7 +185,7 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 			</Button>
 		</div>
 
-		<MIDISounds ref={(ref) => (setMidiSounds(ref))} drums={Object.values(drums)} instruments={Object.values(instruments)} />
+		<MIDISounds ref={(ref) => (setMidiSounds(ref))} drums={Object.values(drumsMap)} instruments={Object.values(instrumentsMap)} />
 
 		<div data-cy={isPlayed ? "status-playing" : "status-stop"}></div>
 	</div>
