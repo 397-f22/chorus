@@ -133,6 +133,7 @@ button {
   padding-bottom: 10px;
 }
 
+
 .MuiFormControl-root {
   background-color: #AAAAAA;
 }
@@ -144,4 +145,11 @@ button {
 #join-with-code-text {
   padding: 10px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+#code-chip {
+  width: 200px;
+  font-size: 20px;
+  margin: 10px auto;
+  font-family: 'PT Sans',"Roboto","Helvetica","Arial", sans-serif;
+
 }
