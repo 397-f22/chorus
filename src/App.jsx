@@ -52,7 +52,7 @@ export const Main = ({id}) => {
     <div className='KeyListener'>
       <div className='flex-col' style={{marginLeft: "20px"}}>
         <Chip label={`Code: ${id}`} color="success" id="code-chip"/>
-        <div className='flex-row' style={{marginTop: "20px", justifyContent: "space-evenly"}}>
+        <div className='flex-row' style={{ justifyContent: "space-evenly"}}>
           <BpmSelector bpm={bpm} setBpm={setBpm} id={id}/>
           <Button variant="outlined"
                   color="success" 

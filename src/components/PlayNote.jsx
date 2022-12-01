@@ -100,7 +100,7 @@ export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPer
 		)
 	}
 
-	return <div style={{ marginTop: "20px" }}>
+	return <div style={{ marginTop: "10px" }}>
 		<LoopProgressIndicator midiSounds = {midiSounds} isPlayed={isPlayed}/>
 		{
 			Object.keys(drums).map((drum, idx) => {
