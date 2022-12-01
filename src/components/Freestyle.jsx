@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import MIDISounds from 'midi-sounds-react';
 import { DataObjectSharp } from '@mui/icons-material';
+import { FormControl, Select, MenuItem, InputLabel } from '@mui/material';
 
-export const Freestyle = ({ selectedInstrument }) => {
+
+export const Freestyle = () => {
 	var octave = 5;
 	const [midiSounds, setMidiSounds] = useState(undefined);
+	const [selectedInstrument, setSelectedInstrument] = useState(1);
 
 	const instrumentsMap = {
 		"Piano": 4,
@@ -64,6 +67,11 @@ export const Freestyle = ({ selectedInstrument }) => {
 		}
 	};
 
+	const handleChange = (event) => {
+		console.log(event.target.value);
+		setSelectedInstrument(event.target.value)
+	}
+
 	useEffect(() => {
 		window.addEventListener('keydown', handleKeyDown);
 
@@ -72,18 +80,24 @@ export const Freestyle = ({ selectedInstrument }) => {
 			window.removeEventListener('keydown', handleKeyDown);
 		};
 	}, [])
-	{
-	<div class="instrument-dropdown">
-	<button onclick="myFunction()" class="dropbtn">Instrument Dropdown</button>
-	<div id="myDropdown" class="dropdown-content">
-		<a href="#">Link 1</a>
-		<a href="#">Link 2</a>
-		<a href="#">Link 3</a>
-		</div>
-	</div>
-	}
 
-	return <MIDISounds ref={(ref) => (setMidiSounds(ref))} drums={Object.values(drumsMap)} instruments={Object.values(instrumentsMap)} />
+	return <div>
+		<FormControl halfWidth>
+		<InputLabel id="instument-label">instument</InputLabel>
+		<Select
+			labelId="instument-label"
+			id="demo-simple-select"
+			value={selectedInstrument}
+			label="instument"
+			onChange={handleChange}
+		>
+			<MenuItem value={1}>Ten</MenuItem>
+			<MenuItem value={2}>Twenty</MenuItem>
+			<MenuItem value={3}>Thirty</MenuItem>
+		</Select>
+		</FormControl>
+		<MIDISounds ref={(ref) => (setMidiSounds(ref))} drums={Object.values(drumsMap)} instruments={Object.values(instrumentsMap)} />
+	</div>
 }
 
 export default Freestyle;
