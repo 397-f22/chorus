@@ -20,6 +20,20 @@ const LoopProgressIndicator = ({isPlayed, midiSounds, beatIndex, setBeatIndex, h
             <div className="bar" style={{
                     left: beatIndex * shiftAmount - 2 + "px", 
             }}/>
+            
+            {/* Janky code to place measure bars on screen - Ethan*/}
+            <div className="measure-bar" style={{
+                    left: 16 * shiftAmount - 2 +1 +"px", 
+                    top: "-100%"
+            }}/>
+            <div className="measure-bar" style={{
+                    left: 32 * shiftAmount - 2 +1 +"px", 
+                    top: "-200%"
+            }}/>
+            <div className="measure-bar" style={{
+                    left: 48 * shiftAmount - 2 +1 +"px", 
+                    top: "-300%"
+            }}/>
         </div>
     )
 }
