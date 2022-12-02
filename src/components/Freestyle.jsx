@@ -1,19 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import MIDISounds from 'midi-sounds-react';
-import { DataObjectSharp } from '@mui/icons-material';
 import { FormControl, Select, MenuItem, InputLabel } from '@mui/material';
 import "../App.css"
 
 
 export const Freestyle = () => {
 	var octave = 5;
-	const [midiSounds, setMidiSounds] = useState(undefined);
-	const [selectedInstrument, setSelectedInstrument] = useState(4);
+	const midiSounds = useRef(undefined);
+	const selectedInstrument = useRef(4);
+	const envelopes = useRef([]);
+    const [count, setCount] = useState(0);
 
 	const instrumentsMap = {
 		"Piano": 4,
 		"Acoustic guitar": 258,
-		"Electric guitar": 318,
+		"Electric guitar": 295,
 		"Electric bass": 387,
 		"Trumpet": 619,
 		"Trombone": 628,
@@ -43,15 +44,12 @@ export const Freestyle = () => {
 		"]": 11
 	}
 
+
 	const handleKeyDown = (event) => {
-		console.log(event.key);
-
-		if (!midiSounds) { return };
-
-		console.log("hi")
+		if (!midiSounds.current) { return };
 
 		if (event.key === "+") {
-			if (octave < 8) {
+			if (octave < 11) {
 				octave++;
 			}
 		}
@@ -61,36 +59,48 @@ export const Freestyle = () => {
 				octave--;
 			}
 		}
-		else if (Object.keys(keyToNote).includes(event.key)) {
-			console.log("play sound: ", selectedInstrument)
-			midiSounds.playChordNow(selectedInstrument, [keyToNote[event.key] + 12 * octave], 1);
+
+		const n = Math.min(keyToNote[event.key] + 12 * octave, 127);
+
+	    if (Object.keys(keyToNote).includes(event.key)) {
+			envelopes.current[n]=midiSounds.current.player.queueWaveTable(midiSounds.current.audioContext
+				, midiSounds.current.equalizer.input
+				, window[midiSounds.current.player.loader.instrumentInfo(selectedInstrument.current).variable]
+				, 0, n, 0.25, 2/9);
 		}
 	};
 
+    const handleKeyUp = (event) => {
+		const n = keyToNote[event.key] + 12 * octave;
+
+		if (Object.keys(keyToNote).includes(event.key)) {
+			if(envelopes.current){
+				if(envelopes.current[n]){
+					console.log(event.key, n);
+					envelopes.current[n].cancel();
+					envelopes.current[n]=null;
+				}
+			}
+		}
+    }
+
 	const handleChange = (event) => {
-		console.log(event.target.value);
-		setSelectedInstrument(event.target.value)
+		selectedInstrument.current = (event.target.value);
+        setCount(count => count+1)
 	}
 
-	useEffect(() => {
-		window.addEventListener('keydown', handleKeyDown);
-
-		// cleanup this component
-		return () => {
-			window.removeEventListener('keydown', handleKeyDown);
-		};
-	}, [])
+	window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp)
 
 	return (
 		<div>
-
 			<div className="soloSelector">
 				<FormControl style={{width: "200px"}}>
 					<InputLabel id="instrument-label" style={{width: "fit-content"}}>Solo Instrument</InputLabel>
 						<Select
 							labelId="instrument-label"
 							id="demo-simple-select"
-							value={selectedInstrument}
+							value={selectedInstrument.current}
 							label="Solo Instrument"
 							onChange={handleChange}
 						>
@@ -102,7 +112,7 @@ export const Freestyle = () => {
 				</FormControl>
 			</div>
 
-			<MIDISounds ref={(ref) => (setMidiSounds(ref))} drums={Object.values(drumsMap)} instruments={Object.values(instrumentsMap)} />
+			<MIDISounds ref={(ref) => {if (ref !== null && ref !== undefined)  { midiSounds.current=(ref) }}} drums={Object.values(drumsMap)} instruments={Object.values(instrumentsMap)} />
 		</div>
 	)
 }

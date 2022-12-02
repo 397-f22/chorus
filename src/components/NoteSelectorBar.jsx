@@ -3,34 +3,55 @@
 import React, { useState } from 'react';
 import './NoteSelectorBar.css'
 import { ButtonGroup, Button } from '@mui/material';
+import { DisabledByDefaultRounded } from '@mui/icons-material';
 
-export const notes = [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71]
+export const notes = (new Array(12)).fill(undefined).map((_, i) => i);
 const note_names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
-const NoteButton = ({note, noteName, setNote, selectedNote}) => {
+const NoteButton = ({note, noteName, setNote, selectedNote, disabled}) => {
     return (
         <Button 
             data-cy={note + (note === selectedNote ? "-selected" : "-unselected")}
-            style={note === selectedNote ? {backgroundColor: "darkseagreen"} : {}} onClick={() => setNote(note)}>
+            style={note === selectedNote ? {backgroundColor: "darkseagreen"} : {}} 
+            onClick={() => setNote(note)} disabled={disabled}>
             {noteName}
         </Button>
     )
 }
 
-const OctaveButton = ({octave, setOctave, direction}) => {
+const handleOctiveChange = (direction, setOctave, note, setNote) => {
+    setOctave((o) => {
+        if (direction) {
+            if (o+1 === 10 && note > 7) {
+                setNote(7);
+            }
+            return Math.min(o+1, 10);
+        } else {
+            return Math.max(o-1, 0);
+        }
+    })
+}
+
+const OctaveButton = ({setOctave, direction, note, setNote}) => {
     return (
-        <Button className="noteButton" onClick={direction ? () => setOctave(octave + 1) : () => setOctave(octave - 1)}>
-             {direction ? "+" : "-"} 
+        <Button className="noteButton" onClick={() => handleOctiveChange(direction, setOctave, note, setNote)}>
+            {direction ? "+" : "-"}
         </Button>
     )
 }
 
 export const NoteSelectorBar = ({note, setNote, octave, setOctave}) => {
-    return (
-        <ButtonGroup variant="outlined" color="success" aria-label="outlined button group" className="flex-row note-container">
-            <OctaveButton octave={octave} setOctave={setOctave} direction={1}/>
-            <OctaveButton octave={octave} setOctave={setOctave} direction={0}/>
-            { notes.map((val, idx) => <NoteButton note={val} noteName={note_names[idx]} setNote={setNote} selectedNote={note} key={idx}/>) }
+    return <div>
+        <ButtonGroup variant="outlined" color="success" aria-label="outlined button group" className="flex-row note-container" style={{marginRight: "5px"}}>
+            <OctaveButton setOctave={setOctave} direction={1} note={note} setNote={setNote}/>
+            <OctaveButton setOctave={setOctave} direction={0}/>
+            <Button disableRipple>Octave: {octave}</Button>
         </ButtonGroup>
-    )
+        <ButtonGroup variant="outlined" color="success" aria-label="outlined button group" className="flex-row note-container">
+            {note_names.map((note_name, idx) => 
+                <NoteButton note={idx} noteName={note_name} setNote={setNote} selectedNote={note} key={idx}
+                            disabled={octave === 10 && (note_name==="G#" || note_name==="A" || note_name==="A#" || note_name==="B")}/>
+            )}
+        </ButtonGroup>
+    </div>
 }

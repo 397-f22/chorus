@@ -20,7 +20,7 @@ const goToHomepage = () => {
 export const Main = ({ id }) => {
   const [bpm, setBpm] = useState(120);
   const [note, setNote] = useState(60);
-  const [octave, setOctave] = useState(0);
+  const [octave, setOctave] = useState(5);
   const [measures, setMeasures] = useState(4);
   const [notesPerMeasure, setNotesPerMeasure] = useState(16);
   const [data, error] = useDbData(`/sessions/${id}`);
