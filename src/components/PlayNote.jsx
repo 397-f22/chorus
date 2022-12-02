@@ -11,7 +11,7 @@ import StopIcon from '@mui/icons-material/Stop';
 	
 export const PlayNote = ({ bpm, note, octave, setOctave, loop, setLoop, notesPerMeasure, isPlayed, setIsPlayed, id, selectedInstrument, setSelectedInstrument }) => {
 	const defaultColor = "#EEEEEE";
-	const [instruments, setInstruments] = useState(["Piano", "Acoustic guitar", "Electric bass"])
+	const [instruments, setInstruments] = useState(["Electric guitar", "Electric bass"])
 	const [drums, setDrums] = useState(["Bass drum", "Hand clap", "Hi-hat", "Rimshot", "Snare drum"])
 
 	const instrumentsMap = {

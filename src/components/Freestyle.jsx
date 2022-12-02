@@ -48,13 +48,13 @@ export const Freestyle = () => {
 	const handleKeyDown = (event) => {
 		if (!midiSounds.current) { return };
 
-		if (event.key === "+") {
+		if (event.key === "+" || event.key === "=") {
 			if (octave < 11) {
 				octave++;
 			}
 		}
 
-		else if (event.key === "-") {
+		else if (event.key === "-" || event.key === "_") {
 			if (octave > 0) {
 				octave--;
 			}
@@ -76,7 +76,6 @@ export const Freestyle = () => {
 		if (Object.keys(keyToNote).includes(event.key)) {
 			if(envelopes.current){
 				if(envelopes.current[n]){
-					console.log(event.key, n);
 					envelopes.current[n].cancel();
 					envelopes.current[n]=null;
 				}
