@@ -24,6 +24,13 @@ describe('function tests', () => {
       //TODO:finish test case revert loop
     })
 
+
+  })
+  it('testing homepage', async () => {
+    const beats = [[[], []], [[1], []], [[], [[1, [1], 1]]], [[1], [[1, [1], 1]]], [[1, 2], [[1, [1], 1], [2, [2], 2]]]];
+    //TODO:finish test case revert loop
+    render(<Homepage />)
+    await screen.getByText(/Join With Code/);
   })
 
 
