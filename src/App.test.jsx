@@ -11,28 +11,4 @@ describe('function tests', () => {
     // console.log(printBeats(beats))
     expect(printBeats(beats) === "[[[],[]],[[1],[]],[[],[[1,[1],1]]],[[1],[[1,[1],1]]],[[1,2],[[1,[1],1],[2,[2],2]]]]").toBeTruthy();
   });
-
-  describe("loop test", () => {
-    it('loops', async () => {
-      const beats = [[[], []], [[1], []], [[], [[1, [1], 1]]], [[1], [[1, [1], 1]]], [[1, 2], [[1, [1], 1], [2, [2], 2]]]];
-      // console.log(convertLoop(beats))
-      // console.log(([["",""],[[1],""],["",[[1,[1],1]]],[[1],[[1,[1],1]]],[[1,2],[[1,[1],1],[2,[2],2]]]]));
-      expect(JSON.stringify(convertLoop(beats)) === JSON.stringify([["", ""], [[1], ""], ["", [[1, [1], 1]]], [[1], [[1, [1], 1]]], [[1, 2], [[1, [1], 1], [2, [2], 2]]]])).toBeTruthy();
-    })
-    it('reverts', async () => {
-      const news = [["", ""], [[1], ""], ["", [[1, [1], 1]]], [[1], [[1, [1], 1]]], [[1, 2], [[1, [1], 1], [2, [2], 2]]]];
-      //TODO:finish test case revert loop
-    })
-
-
-  })
-  it('testing homepage', async () => {
-    const beats = [[[], []], [[1], []], [[], [[1, [1], 1]]], [[1], [[1, [1], 1]]], [[1, 2], [[1, [1], 1], [2, [2], 2]]]];
-    //TODO:finish test case revert loop
-    render(<Homepage />)
-    await screen.getByText(/Join With Code/);
-  })
-
-
-
 });
