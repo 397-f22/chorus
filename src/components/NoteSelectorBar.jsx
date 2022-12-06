@@ -9,10 +9,13 @@ export const notes = (new Array(12)).fill(undefined).map((_, i) => i);
 const note_names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
 const NoteButton = ({note, noteName, setNote, selectedNote, disabled}) => {
+    const selected = (note === selectedNote);
+    
     return (
         <Button 
-            data-cy={note + (note === selectedNote ? "-selected" : "-unselected")}
-            style={note === selectedNote ? {backgroundColor: "darkseagreen"} : {}} 
+            data-cy={note + (selected ? "-selected" : "-unselected")}
+            role={note + (selected ? "-selected" : "-unselected")}
+            style={selected ? {backgroundColor: "darkseagreen"} : {}} 
             onClick={() => setNote(note)} disabled={disabled}>
             {noteName}
         </Button>
