@@ -43,7 +43,7 @@ const Homepage = () => {
               />
             </div>
             <div className="join-with-code-btn" style={{ marginTop: "10px" }}>
-              <Button variant="contained" color="success" onClick={()=>goToSession(joinId)}>JOIN</Button>
+              <Button variant="contained" color="success" id="test" onClick={()=>goToSession(joinId)}>JOIN</Button>
             </div>
           </form>
         </div>
