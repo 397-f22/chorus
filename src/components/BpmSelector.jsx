@@ -29,6 +29,10 @@ export const BpmSelector = ({bpm, setBpm, id}) => {
         }
     }
 
+    const getBpm = () => {
+        return bpm;
+    }
+
     return <TextField
             id="outlined-number"
             data-cy="bpm-input"
