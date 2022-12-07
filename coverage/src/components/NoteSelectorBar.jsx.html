@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">81.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>40/40</span>
+                <span class='fraction'>49/60</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>14/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>4/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">81.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>40/40</span>
+                <span class='fraction'>49/60</span>
             </div>
         
             
@@ -105,7 +105,24 @@
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
-<a name='L43'></a><a href='#L43'>43</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -122,6 +139,25 @@
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -140,63 +176,78 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// import {note as note_name} from "midi-note" 
-// distinct notes - make a button for each of these 
+<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">// distinct notes - make a button for each of these 
 // conversion chart: https://miro.medium.com/proxy/1*CDXHKG0-4QO9Y-DCTAcqPg.png
 import React, { useState } from 'react';
 import './NoteSelectorBar.css'
 import { ButtonGroup, Button } from '@mui/material';
+import { DisabledByDefaultRounded } from '@mui/icons-material';
 &nbsp;
-export const notes = [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71<span class="fstat-no" title="function not covered" >]</span>
+export const notes = (new Array(12)).fill(undefined).map((_, i) =&gt; i<span class="fstat-no" title="function not covered" >);</span>
 const note_names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 &nbsp;
-const NoteButton = ({note, noteName, setNote, selectedNote}) =&gt; {
+const NoteButton = ({note, noteName, setNote, selectedNote, disabled}) =&gt; {
+    const selected = (note === selectedNote);
+    
     return (
-        &lt;Button style={note === selectedNote ? {backgroundColor: "darkseagreen"} : {}} onClick={<span class="fstat-no" title="function not covered" >() =&gt; setNote(note)}&gt;</span>
+        &lt;Button 
+            data-cy={note + (selected ? "-selected" : "-unselected")}
+            role={note + (selected ? "-selected" : "-unselected")}
+            style={selected ? {backgroundColor: "darkseagreen"} : {}} 
+            onClick={<span class="fstat-no" title="function not covered" >() =&gt; setNote(note)} d</span>isabled={disabled}&gt;
             {noteName}
         &lt;/Button&gt;
     )
 }
 &nbsp;
-const OctaveButton = ({octave, setOctave, direction}) =&gt; {
+const handleOctiveChange = (<span class="fstat-no" title="function not covered" >direction, setOctave, note, setNote) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    setOctave((o) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        if (direction) {</span>
+<span class="cstat-no" title="statement not covered" >            if (o+1 === 10 &amp;&amp; note &gt; 7) {</span>
+<span class="cstat-no" title="statement not covered" >                setNote(7);</span>
+<span class="cstat-no" title="statement not covered" >            }</span>
+<span class="cstat-no" title="statement not covered" >            return Math.min(o+1, 10);</span>
+<span class="cstat-no" title="statement not covered" >        } else {</span>
+<span class="cstat-no" title="statement not covered" >            return Math.max(o-1, 0);</span>
+<span class="cstat-no" title="statement not covered" >        }</span>
+<span class="cstat-no" title="statement not covered" >    })</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+&nbsp;
+const OctaveButton = ({setOctave, direction, note, setNote}) =&gt; {
     return (
-        &lt;Button className="noteButton" onClick={direction ? () =&gt; setOctave(octave + 1) : <span class="fstat-no" title="function not covered" >() =&gt; setOctave(octave - 1)}&gt;</span>
-             {direction ? "+" : "-"} 
+        &lt;Button className="noteButton" onClick={<span class="fstat-no" title="function not covered" >() =&gt; handleOctiveChange(direction, setOctave, note, setNote)}&gt;</span>
+            {direction ? "+" : "-"}
         &lt;/Button&gt;
     )
 }
 &nbsp;
 export const NoteSelectorBar = ({note, setNote, octave, setOctave}) =&gt; {
-    return (
-        // &lt;div className="flex-row note-container"&gt;
-        //     &lt;OctaveButton octave={octave} setOctave={setOctave} direction={1}/&gt;
-        //     &lt;OctaveButton octave={octave} setOctave={setOctave} direction={0}/&gt;
-        //     {notes.map((val, idx) =&gt; &lt;NoteButton note={val} noteName={note_names[idx]} setNote={setNote} selectedNote={note}/&gt;)}
-        // &lt;/div&gt;
-        &lt;ButtonGroup variant="outlined" color="success" aria-label="outlined button group" className="flex-row note-container"&gt;
-            &lt;OctaveButton octave={octave} setOctave={setOctave} direction={1}/&gt;
-            &lt;OctaveButton octave={octave} setOctave={setOctave} direction={0}/&gt;
-            { notes.map((val, idx) =&gt; &lt;NoteButton note={val} noteName={note_names[idx]} setNote={setNote} selectedNote={note} key={idx}/&gt;) }
+    return &lt;div&gt;
+        &lt;ButtonGroup variant="outlined" color="success" aria-label="outlined button group" className="flex-row note-container" style={{marginRight: "5px"}}&gt;
+            &lt;OctaveButton setOctave={setOctave} direction={1} note={note} setNote={setNote}/&gt;
+            &lt;OctaveButton setOctave={setOctave} direction={0}/&gt;
+            &lt;Button disableRipple&gt;Octave: {octave}&lt;/Button&gt;
         &lt;/ButtonGroup&gt;
-    )
-}
-&nbsp;
-&nbsp;
-&nbsp;</pre></td></tr></table></pre>
+        &lt;ButtonGroup variant="outlined" color="success" aria-label="outlined button group" className="flex-row note-container"&gt;
+            {note_names.map((note_name, idx) =&gt; 
+                &lt;NoteButton note={idx} noteName={note_name} setNote={setNote} selectedNote={note} key={idx}
+                            disabled={octave === <span class="branch-0 cbranch-no" title="branch not covered" >10 &amp;&amp; (note_name==="G#" || note_name==="A" || note_name==="A#" || note_name==="B")}/</span>&gt;
+            )}
+        &lt;/ButtonGroup&gt;
+    &lt;/div&gt;
+}</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-23T21:26:11.101Z
+                at 2022-12-06T23:52:37.867Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
