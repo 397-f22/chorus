@@ -14,9 +14,6 @@ describe('bpm selector tests', () => {
         render(<BpmSelector bpm={1000000} setBpm={() => {}} id={0} note={0}/>);
         expect(screen.findByText(/999/i));
     });
-    // it('min bpm is 1', () => {
-    //     render(<BpmSelector/>);
-    //     expect(screen.getByText(/min=\"1\"/)).toBeDefined();
-    // })
+
 });
 
