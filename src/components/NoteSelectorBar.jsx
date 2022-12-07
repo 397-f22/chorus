@@ -13,6 +13,7 @@ const NoteButton = ({note, noteName, setNote, selectedNote, disabled}) => {
     
     return (
         <Button 
+            data-testid='note-button'
             data-cy={note + (selected ? "-selected" : "-unselected")}
             role={note + (selected ? "-selected" : "-unselected")}
             style={selected ? {backgroundColor: "darkseagreen"} : {}} 
@@ -37,7 +38,7 @@ const handleOctiveChange = (direction, setOctave, note, setNote) => {
 
 const OctaveButton = ({setOctave, direction, note, setNote}) => {
     return (
-        <Button className="noteButton" onClick={() => handleOctiveChange(direction, setOctave, note, setNote)}>
+        <Button className="noteButton" onClick={() => handleOctiveChange(direction, setOctave, note, setNote)} data-testid={direction ? 'octave-plus-button' : 'octave-minus-button'}>
             {direction ? "+" : "-"}
         </Button>
     )
@@ -46,7 +47,7 @@ const OctaveButton = ({setOctave, direction, note, setNote}) => {
 export const NoteSelectorBar = ({note, setNote, octave, setOctave}) => {
     return <div>
         <ButtonGroup variant="outlined" color="success" aria-label="outlined button group" className="flex-row note-container" style={{marginRight: "5px"}}>
-            <OctaveButton setOctave={setOctave} direction={1} note={note} setNote={setNote}/>
+            <OctaveButton setOctave={setOctave} direction={1} note={note} setNote={setNote} />
             <OctaveButton setOctave={setOctave} direction={0}/>
             <Button disableRipple>Octave: {octave}</Button>
         </ButtonGroup>
